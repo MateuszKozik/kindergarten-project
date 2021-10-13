@@ -1,3 +1,4 @@
+using Kindergarten.Interfaces;
 using Kindergarten.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,6 +37,19 @@ namespace Kindergarten
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApiRepo", Version = "v1" });
             });
 
+            services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<IChildRepository, ChildRepository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<IParentRepository, ParentRepository>();
+            services.AddScoped<IParentChildRepository, ParentChildRepository>();
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
+            services.AddScoped<IPaymentStatusRepository, PaymentStatusRepository>();
+            services.AddScoped<IPayoutRepository, PayoutRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<ISaveRepository, SaveRepository>();
+            services.AddScoped<ISaveStatusRepository, SaveStatusRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,11 +68,8 @@ namespace Kindergarten
                    .AllowCredentials());
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

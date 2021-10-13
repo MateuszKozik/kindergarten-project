@@ -11,7 +11,6 @@ namespace Kindergarten.Interfaces
         Task<IEnumerable<ParentChild>> GetAll();
         Task<ParentChild> Get(int id);
         Task<ParentChild> Add(ParentChild parentChild);
-        Task<ParentChild> Update(ParentChild parentChild);
         Task<ParentChild> Delete(int id);
     }
 }

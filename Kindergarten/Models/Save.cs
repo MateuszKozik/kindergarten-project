@@ -12,7 +12,7 @@ namespace Kindergarten.Models
     {
         [Column("id")]
         [Key]
-        public int SaveId { get; set; }
+        public int Id { get; set; }
 
         [Column("saving_date")]
         public DateTime SavingDate { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kindergarten.Interfaces
 {
-    public interface IPaymentStatus
+    public interface IPaymentStatusRepository
     {
         Task<IEnumerable<PaymentStatus>> GetAll();
         Task<PaymentStatus> Get(int id);

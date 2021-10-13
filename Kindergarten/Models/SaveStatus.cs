@@ -12,7 +12,7 @@ namespace Kindergarten.Models
     {
         [Column("id")]
         [Key]
-        public int StatusId { get; set; }
+        public int Id { get; set; }
 
         [Column("name")]
         public string Name { get; set; }
