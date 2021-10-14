@@ -97,6 +97,17 @@ export default function Navbar() {
                         >
                             Rodzic
 						</Link>
+                        <Link
+                            to="/payout"
+                            style={{
+                                fontWeight: 700,
+                                textDecoration: "none",
+                                color: "#fff",
+                                marginLeft: 5
+                            }}
+                        >
+                            Wypłata
+						</Link>
                         
                     </Typography>
                     
