@@ -7,6 +7,10 @@ import Child from "./Pages/Child/Child";
 import AddChild from "./Pages/Child/AddChild";
 import UpdateChild from "./Pages/Child/UpdateChild";
 
+import Employee from "./Pages/Employee/Employee";
+import AddEmployee from "./Pages/Employee/AddEmployee";
+import UpdateEmployee from "./Pages/Employee/UpdateEmployee";
+
 
 
 function App() {
@@ -20,6 +24,10 @@ function App() {
 				<Route exact path="/child" component={Child} />
 				<Route exact path="/addChild" component={AddChild} />
 				<Route exact path="/updateChild/:id" component={UpdateChild} />
+
+				<Route exact path="/employee" component={Employee} />
+				<Route exact path="/addEmployee" component={AddEmployee} />
+				<Route exact path="/updateEmployee/:id" component={UpdateEmployee} />
 
 			</div>
 		</Router>

@@ -53,6 +53,17 @@ export default function Navbar() {
                         >
                             Dziecko
 						</Link>
+                        <Link
+                            to="/employee"
+                            style={{
+                                fontWeight: 700,
+                                textDecoration: "none",
+                                color: "#fff",
+                                marginLeft: 5
+                            }}
+                        >
+                            Pracownik
+						</Link>
                         
                     </Typography>
                     
