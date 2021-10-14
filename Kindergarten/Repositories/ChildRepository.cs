@@ -55,7 +55,7 @@ namespace Kindergarten.Repositories
                 ch.Name = child.Name;
                 ch.Surname = child.Surname;
                 ch.Pesel = child.Pesel;
-                ch.SpecialRequirements = ch.SpecialRequirements;
+                ch.SpecialRequirements = child.SpecialRequirements;
                 await _context.SaveChangesAsync();
             }
             return ch;
