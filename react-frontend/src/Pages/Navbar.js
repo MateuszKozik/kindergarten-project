@@ -64,6 +64,17 @@ export default function Navbar() {
                         >
                             Pracownik
 						</Link>
+                        <Link
+                            to="/user"
+                            style={{
+                                fontWeight: 700,
+                                textDecoration: "none",
+                                color: "#fff",
+                                marginLeft: 5
+                            }}
+                        >
+                            Użytkownik
+						</Link>
                         
                     </Typography>
                     

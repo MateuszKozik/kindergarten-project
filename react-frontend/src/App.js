@@ -11,6 +11,9 @@ import Employee from "./Pages/Employee/Employee";
 import AddEmployee from "./Pages/Employee/AddEmployee";
 import UpdateEmployee from "./Pages/Employee/UpdateEmployee";
 
+import User from "./Pages/User/User";
+import AddUser from "./Pages/User/AddUser";
+import UpdateUser from "./Pages/User/UpdateUser";
 
 
 function App() {
@@ -28,6 +31,10 @@ function App() {
 				<Route exact path="/employee" component={Employee} />
 				<Route exact path="/addEmployee" component={AddEmployee} />
 				<Route exact path="/updateEmployee/:id" component={UpdateEmployee} />
+
+				<Route exact path="/user" component={User} />
+				<Route exact path="/addUser" component={AddUser} />
+				<Route exact path="/updateUser/:id" component={UpdateUser} />
 
 			</div>
 		</Router>
