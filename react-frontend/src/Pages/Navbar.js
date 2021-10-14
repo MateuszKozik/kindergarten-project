@@ -42,6 +42,17 @@ export default function Navbar() {
                         >
                             Adres
 						</Link>
+                        <Link
+                            to="/child"
+                            style={{
+                                fontWeight: 700,
+                                textDecoration: "none",
+                                color: "#fff",
+                                marginLeft: 5
+                            }}
+                        >
+                            Dziecko
+						</Link>
                         
                     </Typography>
                     
