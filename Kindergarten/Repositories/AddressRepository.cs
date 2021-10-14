@@ -34,13 +34,8 @@ namespace Kindergarten.Repositories
             return address;
         }
 
-        public async Task<IEnumerable<Address>> GetAll()
-        {
-            var address = await _context.Addresses
-                .Include(x => x.Employees)
-                .ToListAsync();
-            return address;
-        }
+       
+        public async Task<IEnumerable<Address>> GetAll() => await _context.Addresses.ToListAsync();
 
         public async Task<Address> Delete(int id)
         {
