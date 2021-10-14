@@ -108,6 +108,17 @@ export default function Navbar() {
                         >
                             Wypłata
 						</Link>
+                        <Link
+                            to="/saveStatus"
+                            style={{
+                                fontWeight: 700,
+                                textDecoration: "none",
+                                color: "#fff",
+                                marginLeft: 5
+                            }}
+                        >
+                            Status
+						</Link>
                         
                     </Typography>
                     
