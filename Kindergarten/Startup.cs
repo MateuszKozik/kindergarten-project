@@ -29,7 +29,7 @@ namespace Kindergarten
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DatabaseContext>(o => o.UseSqlServer(@"Data Source = localhost\SQLEXPRESS; Initial Catalog = Kindergarten; User ID = sa; Password = Qwerty@1"));
+            services.AddDbContext<DatabaseContext>(o => o.UseSqlServer(@"Data Source = localhost; Initial Catalog = Kindergarten; User ID = sa; Password = Qwerty@1"));
             services.AddControllers();
             services.AddCors();
             services.AddSwaggerGen(c =>
