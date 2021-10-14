@@ -117,7 +117,18 @@ export default function Navbar() {
                                 marginLeft: 5
                             }}
                         >
-                            Status
+                            Status zapisu
+						</Link>
+                        <Link
+                            to="/paymentStatus"
+                            style={{
+                                fontWeight: 700,
+                                textDecoration: "none",
+                                color: "#fff",
+                                marginLeft: 5
+                            }}
+                        >
+                            Status płatności
 						</Link>
                         
                     </Typography>
