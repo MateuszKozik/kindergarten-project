@@ -75,6 +75,17 @@ export default function Navbar() {
                         >
                             Użytkownik
 						</Link>
+                        <Link
+                            to="/group"
+                            style={{
+                                fontWeight: 700,
+                                textDecoration: "none",
+                                color: "#fff",
+                                marginLeft: 5
+                            }}
+                        >
+                            Grupa
+						</Link>
                         
                     </Typography>
                     

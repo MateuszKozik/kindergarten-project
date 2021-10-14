@@ -15,6 +15,10 @@ import User from "./Pages/User/User";
 import AddUser from "./Pages/User/AddUser";
 import UpdateUser from "./Pages/User/UpdateUser";
 
+import Group from "./Pages/Group/Group";
+import AddGroup from "./Pages/Group/AddGroup";
+import UpdateGroup from "./Pages/Group/UpdateGroup";
+
 
 function App() {
 	return (
@@ -35,6 +39,10 @@ function App() {
 				<Route exact path="/user" component={User} />
 				<Route exact path="/addUser" component={AddUser} />
 				<Route exact path="/updateUser/:id" component={UpdateUser} />
+
+				<Route exact path="/group" component={Group} />
+				<Route exact path="/addGroup" component={AddGroup} />
+				<Route exact path="/updateGroup/:id" component={UpdateGroup} />
 
 			</div>
 		</Router>
