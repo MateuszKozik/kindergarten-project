@@ -19,6 +19,10 @@ import Group from "./Pages/Group/Group";
 import AddGroup from "./Pages/Group/AddGroup";
 import UpdateGroup from "./Pages/Group/UpdateGroup";
 
+import Parent from "./Pages/Parent/Parent";
+import AddParent from "./Pages/Parent/AddParent";
+import UpdateParent from "./Pages/Parent/UpdateParent";
+
 
 function App() {
 	return (
@@ -43,6 +47,10 @@ function App() {
 				<Route exact path="/group" component={Group} />
 				<Route exact path="/addGroup" component={AddGroup} />
 				<Route exact path="/updateGroup/:id" component={UpdateGroup} />
+
+				<Route exact path="/parent" component={Parent} />
+				<Route exact path="/addParent" component={AddParent} />
+				<Route exact path="/updateParent/:id" component={UpdateParent} />
 
 			</div>
 		</Router>

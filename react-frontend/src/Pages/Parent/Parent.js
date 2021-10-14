@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import Navbar from "../Navbar";
 import {
-	getEmployees,
-    deleteEmployee
-} from "../../actions/employeeActions";
+	getParents,
+    deleteParent
+} from "../../actions/parentActions";
 import {
 	getAddresses
 } from "../../actions/addressActions";
@@ -26,7 +26,7 @@ import {
 
 
 
-export class Employee extends Component {
+export class Parent extends Component {
 	state = {
 		data: [],
 		address: [],
@@ -35,7 +35,7 @@ export class Employee extends Component {
 	};
 
 	componentDidMount() {
-		getEmployees().then((res) => {
+		getParents().then((res) => {
 			this.setState({ data: [res.data] });
 		});
 		getAddresses().then((res) => {
@@ -83,12 +83,7 @@ export class Employee extends Component {
 										<TableCell >
 											<Typography align="center">Telefon</Typography>
 										</TableCell>
-										<TableCell >
-											<Typography align="center">Stanowisko</Typography>
-										</TableCell>
-                                        <TableCell >
-											<Typography align="center">Płaca</Typography>
-										</TableCell>
+										
                                         <TableCell >
 											<Typography align="center">Adres</Typography>
 										</TableCell>
@@ -101,40 +96,31 @@ export class Employee extends Component {
 									</TableRow>
 								</TableHead>
 								<TableBody>
-									{this.state.data[0] && this.state.data[0].map((employee) => {
+									{this.state.data[0] && this.state.data[0].map((parent) => {
 										
 										return (
-											<TableRow key={employee.id}>
+											<TableRow key={parent.id}>
 												<TableCell>
 													<Typography >
-														{employee.name}
+														{parent.name}
 													</Typography>
 												</TableCell>
                                                 <TableCell>
 													<Typography align="center">
-														{employee.surname}
+														{parent.surname}
 													</Typography>
 												</TableCell>
                                                 <TableCell>
 													<Typography align="center">
-														{employee.phoneNumber}
+														{parent.phoneNumber}
 													</Typography>
 												</TableCell>
-												<TableCell>
-													<Typography align="center">
-														{employee.position}
-													</Typography>
-												</TableCell>
-												<TableCell>
-													<Typography align="center">
-														{employee.salary }
-													</Typography>
-												</TableCell>
+												
                                                 <TableCell>
 												{this.state.address[0] && this.state.address[0].map((address) => {
 													return(
 													<Typography align="center">
-														{employee.addressId === address.id ? address.city+","+address.street:''}
+														{parent.addressId === address.id ? address.city+","+address.street:''}
 														
 													</Typography>
 													)
@@ -144,7 +130,7 @@ export class Employee extends Component {
 												{this.state.user[0] && this.state.user[0].map((user) => {
 													return(
 													<Typography align="center">
-														{employee.userId === user.id ? user.email:''}
+														{parent.userId === user.id ? user.email:''}
 														
 													</Typography>
 													)
@@ -156,7 +142,7 @@ export class Employee extends Component {
 														variant="contained"
 														color="primary"
 														onClick={() => {
-															this.props.history.push(`/updateEmployee/${employee.id}`)
+															this.props.history.push(`/updateParent/${parent.id}`)
 														}}
 													>
 														Aktualizuj
@@ -166,9 +152,9 @@ export class Employee extends Component {
 														color="primary"
 														onClick={() => {
                                                            
-                                                            deleteEmployee(employee.id).then((res) => {
+                                                            deleteParent(parent.id).then((res) => {
                                                                 if(res && res.status === 200){
-                                                                   window.location.href = "/employee";
+                                                                   window.location.href = "/parent";
                                                                 }
                                                             });
 														}}
@@ -192,10 +178,10 @@ export class Employee extends Component {
 							variant="contained"
 							color="primary"
 							onClick={() =>
-								this.props.history.push(`/addEmployee`)
+								this.props.history.push(`/addParent`)
 							}
 						>
-							Dodaj pracownika
+							Dodaj rodzica
 						</Button>
 					</Grid>
 					
@@ -208,4 +194,4 @@ export class Employee extends Component {
 
 
 
-export default Employee;
+export default Parent;

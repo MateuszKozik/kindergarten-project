@@ -86,6 +86,17 @@ export default function Navbar() {
                         >
                             Grupa
 						</Link>
+                        <Link
+                            to="/parent"
+                            style={{
+                                fontWeight: 700,
+                                textDecoration: "none",
+                                color: "#fff",
+                                marginLeft: 5
+                            }}
+                        >
+                            Rodzic
+						</Link>
                         
                     </Typography>
                     
