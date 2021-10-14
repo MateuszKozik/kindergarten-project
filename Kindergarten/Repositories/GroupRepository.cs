@@ -18,6 +18,7 @@ namespace Kindergarten.Repositories
             Group g = new Group
             {
                 Name = group.Name,
+                FreePlaces = group.FreePlaces,
                 EmployeeId = group.EmployeeId
             };
             _context.Add(g);
@@ -51,6 +52,7 @@ namespace Kindergarten.Repositories
             if (g != null)
             {
                 g.Name = group.Name;
+                g.FreePlaces = group.FreePlaces;
                 g.EmployeeId = group.EmployeeId;
                 await _context.SaveChangesAsync();
             }
