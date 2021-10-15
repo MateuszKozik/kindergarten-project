@@ -141,6 +141,17 @@ export default function Navbar() {
                         >
                             Zapis
 						</Link>
+                        <Link
+                            to="/payment"
+                            style={{
+                                fontWeight: 700,
+                                textDecoration: "none",
+                                color: "#fff",
+                                marginLeft: 5
+                            }}
+                        >
+                            Opłata
+						</Link>
                         
                     </Typography>
                     

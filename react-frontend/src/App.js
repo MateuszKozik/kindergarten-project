@@ -39,6 +39,10 @@ import Save from "./Pages/Save/Save";
 import AddSave from "./Pages/Save/AddSave";
 import UpdateSave from "./Pages/Save/UpdateSave";
 
+import Payment from "./Pages/Payment/Payment";
+import AddPayment from "./Pages/Payment/AddPayment";
+import UpdatePayment from "./Pages/Payment/UpdatePayment";
+
 function App() {
 	return (
 		<Router>
@@ -82,6 +86,10 @@ function App() {
 				<Route exact path="/save" component={Save} />
 				<Route exact path="/addSave" component={AddSave} />
 				<Route exact path="/updateSave/:id" component={UpdateSave} />
+
+				<Route exact path="/payment" component={Payment} />
+				<Route exact path="/addPayment" component={AddPayment} />
+				<Route exact path="/updatePayment/:id" component={UpdatePayment} />
 
 			</div>
 		</Router>
