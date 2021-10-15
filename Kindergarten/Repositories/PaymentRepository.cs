@@ -21,7 +21,7 @@ namespace Kindergarten.Repositories
                 PaymentDate = payment.PaymentDate,
                 PayoutDate = payment.PayoutDate,
                 StatusId = payment.StatusId,
-                SaveId = payment.StatusId
+                SaveId = payment.SaveId
             };
             _context.Add(p);
             await _context.SaveChangesAsync();
@@ -57,7 +57,7 @@ namespace Kindergarten.Repositories
                 p.PaymentDate = payment.PaymentDate;
                 p.PayoutDate = payment.PayoutDate;
                 p.StatusId = payment.StatusId;
-                p.SaveId = payment.StatusId;
+                p.SaveId = payment.SaveId;
                 await _context.SaveChangesAsync();
             }
             return p;
