@@ -35,6 +35,10 @@ import PaymentStatus from "./Pages/PaymentStatus/PaymentStatus";
 import AddPaymentStatus from "./Pages/PaymentStatus/AddPaymentStatus";
 import UpdatePaymentStatus from "./Pages/PaymentStatus/UpdatePaymentStatus";
 
+import Save from "./Pages/Save/Save";
+import AddSave from "./Pages/Save/AddSave";
+import UpdateSave from "./Pages/Save/UpdateSave";
+
 function App() {
 	return (
 		<Router>
@@ -74,6 +78,10 @@ function App() {
 				<Route exact path="/paymentStatus" component={PaymentStatus} />
 				<Route exact path="/addPaymentStatus" component={AddPaymentStatus} />
 				<Route exact path="/updatePaymentStatus/:id" component={UpdatePaymentStatus} />
+
+				<Route exact path="/save" component={Save} />
+				<Route exact path="/addSave" component={AddSave} />
+				<Route exact path="/updateSave/:id" component={UpdateSave} />
 
 			</div>
 		</Router>

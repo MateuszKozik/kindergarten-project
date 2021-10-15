@@ -130,6 +130,17 @@ export default function Navbar() {
                         >
                             Status płatności
 						</Link>
+                        <Link
+                            to="/save"
+                            style={{
+                                fontWeight: 700,
+                                textDecoration: "none",
+                                color: "#fff",
+                                marginLeft: 5
+                            }}
+                        >
+                            Zapis
+						</Link>
                         
                     </Typography>
                     
