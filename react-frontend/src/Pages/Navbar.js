@@ -152,6 +152,17 @@ export default function Navbar() {
                         >
                             Opłata
 						</Link>
+                        <Link
+                            to="/parentChild"
+                            style={{
+                                fontWeight: 700,
+                                textDecoration: "none",
+                                color: "#fff",
+                                marginLeft: 5
+                            }}
+                        >
+                            Powiązanie
+						</Link>
                         
                     </Typography>
                     

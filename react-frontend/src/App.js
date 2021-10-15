@@ -43,6 +43,10 @@ import Payment from "./Pages/Payment/Payment";
 import AddPayment from "./Pages/Payment/AddPayment";
 import UpdatePayment from "./Pages/Payment/UpdatePayment";
 
+import ParentChild from "./Pages/ParentChild/ParentChild";
+import AddParentChild from "./Pages/ParentChild/AddParentChild";
+
+
 function App() {
 	return (
 		<Router>
@@ -90,6 +94,10 @@ function App() {
 				<Route exact path="/payment" component={Payment} />
 				<Route exact path="/addPayment" component={AddPayment} />
 				<Route exact path="/updatePayment/:id" component={UpdatePayment} />
+
+				<Route exact path="/parentChild" component={ParentChild} />
+				<Route exact path="/addParentChild" component={AddParentChild} />
+				
 
 			</div>
 		</Router>
