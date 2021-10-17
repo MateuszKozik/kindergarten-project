@@ -81,6 +81,7 @@ namespace Kindergarten.Controllers
             return BadRequest();
         }
 
+        // GET: Pay/saveId
         [HttpGet("Pay/{saveId}")]
         public async Task<IActionResult> Pay(int saveId)
         {
@@ -91,6 +92,7 @@ namespace Kindergarten.Controllers
             return BadRequest();   
         }
 
+        // GET: GeneratePayments
         [HttpGet("GeneratePayments")]
         public async Task<IActionResult> GeneratePayments()
         {

@@ -81,6 +81,7 @@ namespace Kindergarten.Controllers
             return BadRequest();
         }
 
+        // GET: Unsubscribe/id
         [HttpGet("Unsubscribe/{id}")]
         public async Task<IActionResult> Unsubscribe(int id)
         {

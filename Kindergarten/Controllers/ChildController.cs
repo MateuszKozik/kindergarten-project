@@ -81,6 +81,7 @@ namespace Kindergarten.Controllers
             return BadRequest();
         }
 
+        // POST: Child/AddByParent/parentId
         [HttpPost("AddByParent/{parentId}")]
         public async Task<IActionResult> AddByParent(Child child, int parentId)
         {
@@ -91,6 +92,7 @@ namespace Kindergarten.Controllers
             return BadRequest();
         }
 
+        // GET: Child/GetByParent/parentId
         [HttpGet("GetByParent/{parentId}")]
         public async Task<IActionResult> GetByParent(int parentId)
         {
@@ -101,6 +103,7 @@ namespace Kindergarten.Controllers
             return BadRequest();
         }
 
+        // GET: GetByGroup/groupId
         [HttpGet("GetByGroup/{groupId}")]
         public async Task<IActionResult> GetByGroup(int groupId)
         {
@@ -111,6 +114,7 @@ namespace Kindergarten.Controllers
             return BadRequest();
         }
 
+        // GET: IsSaved/id
         [HttpGet("IsSaved/{id}")]
         public async Task<IActionResult> IsSaved(int id)
         {

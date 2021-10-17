@@ -18,6 +18,7 @@ namespace Kindergarten.Controllers
 
         public WebPushController(IDeviceRepository deviceRepository) { _deviceRepository = deviceRepository; }
 
+        // POST: WebPush/AddDevice
         [HttpPost("AddDevice")]
         public async Task<IActionResult> AddDevice(Device device)
         {
@@ -28,6 +29,7 @@ namespace Kindergarten.Controllers
             return BadRequest();
         }
 
+        // POST: WebPush/SendPush
         [HttpPost("SendPush")]
         public async Task<IActionResult> SendPush(PushMessage message)
         {

@@ -100,6 +100,7 @@ namespace Kindergarten.Controllers
             return BadRequest();
         }
 
+        // POST: Register/Employee
         [HttpPost("Register/Employee")]
         public async Task<IActionResult> RegisterEmployee(User user)
         {
@@ -113,6 +114,7 @@ namespace Kindergarten.Controllers
             return BadRequest();
         }
 
+        // POST: Register/Parent
         [HttpPost("Register/Parent")]
         public async Task<IActionResult> RegisterParent(User user)
         {
@@ -148,6 +150,5 @@ namespace Kindergarten.Controllers
 
             return Ok(token);
         }
-
     }
 }

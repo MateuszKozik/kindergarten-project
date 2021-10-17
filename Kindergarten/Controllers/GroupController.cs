@@ -81,6 +81,7 @@ namespace Kindergarten.Controllers
             return BadRequest();
         }
 
+        // GET: GetByEmployee/employeeId
         [HttpGet("GetByEmployee/{employeeId}")]
         public async Task<IActionResult> GetByEmployee(int employeeId)
         {
