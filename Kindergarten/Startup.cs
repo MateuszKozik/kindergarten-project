@@ -72,6 +72,7 @@ namespace Kindergarten
             services.AddScoped<ISaveRepository, SaveRepository>();
             services.AddScoped<ISaveStatusRepository, SaveStatusRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IDeviceRepository, DeviceRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

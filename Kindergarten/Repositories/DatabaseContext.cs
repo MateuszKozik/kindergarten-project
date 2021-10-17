@@ -28,6 +28,7 @@ namespace Kindergarten.Repositories
         public DbSet<Save> Saves { get; set; }
         public DbSet<SaveStatus> SaveStatuses { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Device> Devices { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
