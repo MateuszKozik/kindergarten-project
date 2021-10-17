@@ -145,6 +145,10 @@ namespace Kindergarten.Repositories
                 new SaveStatus { Id = 1, Name = "paid" },
                 new SaveStatus { Id = 2, Name = "unpaid" },
                 new SaveStatus { Id = 3, Name = "unsubscribed" });
+
+            modelBuilder.Entity<User>().HasData(
+                new User { Id = 1, Email = "admin@admin.pl", Enabled = true, Password = "$2a$11$f3lTPwhy2W62tcC4215nWeuL5vNS.gzXRhnJJznutAEiYaoUQ/RnO", RoleId = 1 }
+                );
         }
     }
 }

@@ -80,5 +80,15 @@ namespace Kindergarten.Controllers
             }
             return BadRequest();
         }
+
+        [HttpGet("GetByUser/{userId}")]
+        public async Task<IActionResult> GetByUser(int userId)
+        {
+            if (ModelState.IsValid)
+            {
+                return Ok(await _employeeRepository.GetByUser(userId));
+            }
+            return BadRequest();
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace Kindergarten.Interfaces
         Task<Parent> Add(Parent parent);
         Task<Parent> Update(Parent parent);
         Task<Parent> Delete(int id);
+        Task<Parent> GetByUser(int userId);
     }
 }

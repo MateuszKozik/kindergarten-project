@@ -14,5 +14,6 @@ namespace Kindergarten.Interfaces
         Task<Group> Update(Group group);
         Task<Group> Delete(int id);
         Task<IEnumerable<Group>> GetByEmployee(int employeeId);
+        Task<IEnumerable<Group>> GetAllActive();
     }
 }

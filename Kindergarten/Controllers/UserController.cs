@@ -114,7 +114,7 @@ namespace Kindergarten.Controllers
             return BadRequest();
         }
 
-        // POST: Register/Parent
+        // POST: User/Register/Parent
         [HttpPost("Register/Parent")]
         public async Task<IActionResult> RegisterParent(User user)
         {

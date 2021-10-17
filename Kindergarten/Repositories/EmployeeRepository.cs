@@ -77,6 +77,8 @@ namespace Kindergarten.Repositories
             }
             return emp;
         }
+
+        public async Task<Employee> GetByUser(int userId) => await _context.Employees.Where(x => x.UserId == userId).FirstOrDefaultAsync();
     }
 }
 
