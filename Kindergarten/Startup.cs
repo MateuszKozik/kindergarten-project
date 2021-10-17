@@ -1,5 +1,6 @@
 using Kindergarten.Interfaces;
 using Kindergarten.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,10 +10,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Kindergarten
@@ -29,13 +32,32 @@ namespace Kindergarten
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DatabaseContext>(o => o.UseSqlServer(@"Data Source = localhost; Initial Catalog = Kindergarten; User ID = sa; Password = Qwerty@1"));
-            services.AddControllers();
+            services.AddDbContext<DatabaseContext>(o => o.UseSqlServer(@"Data Source = localhost\SQLEXPRESS; Initial Catalog = Kindergarten; User ID = sa; Password = Qwerty@1"));
+            services.AddControllers().AddNewtonsoftJson(options =>  options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore); 
             services.AddCors();
+            var key = "7WK5T79u5mIzjIXXi2oI9Fglkdwlv7RAJ7izyj9tUyQ";
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApiRepo", Version = "v1" });
             });
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+            services.AddSingleton<IJwtAutenticationManager>(new JwtAutenticationManager(key));
 
             services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddScoped<IChildRepository, ChildRepository>();
@@ -69,6 +91,7 @@ namespace Kindergarten
 
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

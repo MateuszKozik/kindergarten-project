@@ -13,5 +13,6 @@ namespace Kindergarten.Interfaces
         Task<Save> Add(Save save);
         Task<Save> Update(Save save);
         Task<Save> Delete(int id);
+        Task<Save> Unsubscribe(int id);
     }
 }

@@ -11,7 +11,12 @@ namespace Kindergarten.Repositories
     public class PaymentRepository : IPaymentRepository
     {
         private readonly DatabaseContext _context;
-        public PaymentRepository(DatabaseContext context) { _context = context; }
+        private readonly ISaveRepository _saveRepository;
+        public PaymentRepository(DatabaseContext context, ISaveRepository saveRepository)
+        {
+            _context = context;
+            _saveRepository = saveRepository;
+        }
 
         public async Task<Payment> Add(Payment payment)
         {
@@ -61,6 +66,52 @@ namespace Kindergarten.Repositories
                 await _context.SaveChangesAsync();
             }
             return p;
+        }
+
+        public async Task<Payment> PayBySave(int saveId)
+        {
+            Payment payment = await _context.Payments.Where(x => x.SaveId == saveId && x.StatusId == 2).FirstOrDefaultAsync();
+            if (payment != null)
+            {
+                payment.StatusId = 1;
+                payment.PayoutDate = DateTime.Now;
+                payment = await Update(payment);
+
+                Save save = await _saveRepository.Get(saveId);
+                save.StatusId = 1;
+                await _saveRepository.Update(save);
+            }
+            return payment;
+        }
+
+        public async Task<List<Payment>> GeneratePayments()
+        {
+            List<Payment> payments = new List<Payment>();
+            foreach (var save in await _context.Saves.Where(x => x.StatusId != 3).ToListAsync())
+            {
+                Payment payment = await _context.Payments.Where(x => x.SaveId == save.Id).OrderByDescending(x => x.PaymentDate).FirstOrDefaultAsync();
+                if (payment != null)
+                {
+                    if (payment.PaymentDate.AddMonths(1) <= DateTime.Now)
+                    {
+                        Payment newPayment = null;
+                        if (save.StatusId == 2)
+                        {
+                            payment.StatusId = 3;
+                            await Update(payment);
+                            newPayment = await Add(new Payment { PaymentDate = DateTime.Now.AddDays(7), Amount = payment.Amount + 400, PayoutDate = null, StatusId = 2, SaveId = save.Id });
+                        }
+                        else
+                        {
+                            newPayment = await Add(new Payment { PaymentDate = DateTime.Now.AddDays(7), Amount = 400, PayoutDate = null, StatusId = 2, SaveId = save.Id });
+                        }
+                        save.StatusId = 2;
+                        await _context.SaveChangesAsync();
+                        if (newPayment != null) { payments.Add(newPayment); }
+                    }
+                }
+            }
+            return payments;
         }
     }
 }

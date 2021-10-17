@@ -13,5 +13,7 @@ namespace Kindergarten.Interfaces
         Task<Payment> Add(Payment payment);
         Task<Payment> Update(Payment payment);
         Task<Payment> Delete(int id);
+        Task<Payment> PayBySave(int saveId);
+        Task<List<Payment>> GeneratePayments();
     }
 }

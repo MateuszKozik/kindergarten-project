@@ -128,6 +128,22 @@ namespace Kindergarten.Repositories
                 .WithMany(p => p.Payments)
                 .HasForeignKey(s => s.SaveId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Role>().HasData(
+             new Role { Id = 1, Name = "admin" },
+             new Role { Id = 2, Name = "employee" },
+             new Role { Id = 3, Name = "parent" });
+
+            modelBuilder.Entity<PaymentStatus>().HasData(
+                new PaymentStatus { Id = 1, Name = "paid" },
+                new PaymentStatus { Id = 2, Name = "unpaid" },
+                new PaymentStatus { Id = 3, Name = "overdue" }
+                );
+
+            modelBuilder.Entity<SaveStatus>().HasData(
+                new SaveStatus { Id = 1, Name = "paid" },
+                new SaveStatus { Id = 2, Name = "unpaid" },
+                new SaveStatus { Id = 3, Name = "unsubscribed" });
         }
     }
 }

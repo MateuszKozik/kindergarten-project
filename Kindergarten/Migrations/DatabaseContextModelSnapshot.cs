@@ -225,7 +225,7 @@ namespace Kindergarten.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("payment_date");
 
-                    b.Property<DateTime>("PayoutDate")
+                    b.Property<DateTime?>("PayoutDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("payout_date");
 
@@ -261,6 +261,23 @@ namespace Kindergarten.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("payment_statuses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "paid"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "unpaid"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "overdue"
+                        });
                 });
 
             modelBuilder.Entity("Kindergarten.Models.Payout", b =>
@@ -305,6 +322,23 @@ namespace Kindergarten.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "employee"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "parent"
+                        });
                 });
 
             modelBuilder.Entity("Kindergarten.Models.Save", b =>
@@ -344,7 +378,7 @@ namespace Kindergarten.Migrations
 
             modelBuilder.Entity("Kindergarten.Models.SaveStatus", b =>
                 {
-                    b.Property<int>("StatusId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("id")
@@ -354,9 +388,26 @@ namespace Kindergarten.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("name");
 
-                    b.HasKey("StatusId");
+                    b.HasKey("Id");
 
                     b.ToTable("save_statuses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "paid"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "unpaid"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "unsubscribed"
+                        });
                 });
 
             modelBuilder.Entity("Kindergarten.Models.User", b =>

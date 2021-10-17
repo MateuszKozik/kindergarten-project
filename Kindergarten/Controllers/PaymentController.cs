@@ -80,6 +80,26 @@ namespace Kindergarten.Controllers
             }
             return BadRequest();
         }
+
+        [HttpGet("Pay/{saveId}")]
+        public async Task<IActionResult> Pay(int saveId)
+        {
+            if (ModelState.IsValid)
+            {
+                return Ok(await _paymentRepository.PayBySave(saveId));
+            }
+            return BadRequest();   
+        }
+
+        [HttpGet("GeneratePayments")]
+        public async Task<IActionResult> GeneratePayments()
+        {
+            if (ModelState.IsValid)
+            {
+                return Ok(await _paymentRepository.GeneratePayments());
+            }
+            return BadRequest();
+        }
     }
 }
 

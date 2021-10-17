@@ -80,5 +80,45 @@ namespace Kindergarten.Controllers
             }
             return BadRequest();
         }
+
+        [HttpPost("AddByParent/{parentId}")]
+        public async Task<IActionResult> AddByParent(Child child, int parentId)
+        {
+            if (ModelState.IsValid)
+            {
+                return Ok(await _childRepository.AddByParent(child, parentId));
+            }
+            return BadRequest();
+        }
+
+        [HttpGet("GetByParent/{parentId}")]
+        public async Task<IActionResult> GetByParent(int parentId)
+        {
+            if (ModelState.IsValid)
+            {
+                return Ok(await _childRepository.GetByParent(parentId));
+            }
+            return BadRequest();
+        }
+
+        [HttpGet("GetByGroup/{groupId}")]
+        public async Task<IActionResult> GetByGroup(int groupId)
+        {
+            if (ModelState.IsValid)
+            {
+                return Ok(await _childRepository.GetByGroup(groupId));
+            }
+            return BadRequest();
+        }
+
+        [HttpGet("IsSaved/{id}")]
+        public async Task<IActionResult> IsSaved(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                return Ok(await _childRepository.IsSaved(id));
+            }
+            return BadRequest();
+        }
     }
 }

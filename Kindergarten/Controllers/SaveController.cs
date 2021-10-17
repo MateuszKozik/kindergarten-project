@@ -80,5 +80,15 @@ namespace Kindergarten.Controllers
             }
             return BadRequest();
         }
+
+        [HttpGet("Unsubscribe/{id}")]
+        public async Task<IActionResult> Unsubscribe(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                return Ok(await _saveRepository.Unsubscribe(id));
+            }
+            return BadRequest();
+        }
     }
 }

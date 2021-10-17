@@ -14,5 +14,7 @@ namespace Kindergarten.Interfaces
         Task<User> Add(User user);
         Task<User> Update(User user);
         Task<User> Delete(int id);
+        Task<User> RegisterEmployee(User user);
+        Task<User> RegisterParent(User user);
     }
 }

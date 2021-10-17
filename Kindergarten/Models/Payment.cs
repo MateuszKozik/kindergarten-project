@@ -21,7 +21,7 @@ namespace Kindergarten.Models
         public DateTime PaymentDate { get; set; }
 
         [Column("payout_date")]
-        public DateTime PayoutDate { get; set; }
+        public DateTime? PayoutDate { get; set; }
 
         [Column("status_id")]
         public int StatusId { get; set; }

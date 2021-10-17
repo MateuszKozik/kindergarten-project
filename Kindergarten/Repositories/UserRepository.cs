@@ -22,7 +22,9 @@ namespace Kindergarten.Repositories
                 Email = user.Email,
                 Password = passwordHash,
                 Enabled = user.Enabled,
-                RoleId = user.RoleId
+                RoleId = user.RoleId,
+                Employee = user.Employee,
+                Parent = user.Parent
             };
             _context.Add(u);
             await _context.SaveChangesAsync();
@@ -70,6 +72,24 @@ namespace Kindergarten.Repositories
                 await _context.SaveChangesAsync();
             }
             return u;
+        }
+
+        public async Task<User> RegisterEmployee(User user)
+        {          
+            Role role = await _context.Roles.Where(x => x.Name.Equals("employee")).FirstOrDefaultAsync();
+            user.Enabled = true;
+            user.RoleId = role.Id;
+            User us = await Add(user);
+            return us;
+        }
+
+        public async Task<User> RegisterParent(User user)
+        {
+            Role role = await _context.Roles.Where(x => x.Name.Equals("parent")).FirstOrDefaultAsync();
+            user.Enabled = true;
+            user.RoleId = role.Id;
+            User us = await Add(user);
+            return us;
         }
     }
 }

@@ -58,5 +58,8 @@ namespace Kindergarten.Repositories
             }
             return g;
         }
+
+        public async Task<IEnumerable<Group>> GetByEmployee(int employeeId) => await _context.Groups.Where(x => x.EmployeeId == employeeId).ToListAsync();
+
     }
 }

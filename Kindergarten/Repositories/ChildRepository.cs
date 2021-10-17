@@ -11,7 +11,12 @@ namespace Kindergarten.Repositories
     public class ChildRepository : IChildRepository
     {
         private readonly DatabaseContext _context;
-        public ChildRepository(DatabaseContext context) { _context = context; }
+        private readonly IParentChildRepository _parentChildRepository;
+        public ChildRepository(DatabaseContext context, IParentChildRepository parentChildRepository)
+        { 
+            _context = context;
+            _parentChildRepository = parentChildRepository;
+        }
 
         public async Task<Child> Add(Child child)
         {
@@ -60,5 +65,45 @@ namespace Kindergarten.Repositories
             }
             return ch;
         }
+
+        public async Task<Child> GetByPesel(string pesel) => await _context.Children.Where(x => x.Pesel.Equals(pesel)).FirstOrDefaultAsync();
+
+        public async Task<Child> AddByParent(Child child, int parentId)
+        {
+            Parent parent = await _context.Parents.Where(x => x.Id == parentId).FirstOrDefaultAsync();
+            Child ch = await GetByPesel(child.Pesel);
+            if(ch == null)
+            {
+                ch = await Add(child);
+            }
+            await _parentChildRepository.Add(new ParentChild { ParentId = parentId, ChildId = ch.Id });          
+            return ch;
+        }
+
+        public async Task<IEnumerable<Child>> GetByParent(int parentId)
+        {
+            List<Child> children = new List<Child>();
+            foreach (var item in await _context.ParentChildren.Where(x => x.ParentId == parentId).ToListAsync())
+            {
+                children.Add(await Get(item.ChildId));
+            }
+            return children;
+        }
+
+        public async Task<IEnumerable<Child>> GetByGroup(int groupId)
+        {
+            List<Child> children = new List<Child>();
+            foreach (var item in await _context.Saves.Where(x => x.GroupId == groupId).ToListAsync())
+            {
+                Child child = _context.Children.Where(x => x.Id == item.ChildId && item.StatusId != 3).FirstOrDefault();
+                if(child != null)
+                {
+                    children.Add(child);
+                }
+            }
+            return children;
+        }
+
+        public async Task<bool> IsSaved(int id) => await _context.Saves.AnyAsync(x => x.ChildId == id && x.StatusId != 3);   
     }
 }

@@ -80,5 +80,26 @@ namespace Kindergarten.Controllers
             }
             return BadRequest();
         }
+
+        [HttpGet("GetByEmployee/{employeeId}")]
+        public async Task<IActionResult> GetByEmployee(int employeeId)
+        {
+            if (ModelState.IsValid)
+            {
+                return Ok(await _payoutRepository.GetByEmployee(employeeId));
+            }
+            return BadRequest();
+        }
+
+
+        [HttpGet("GeneratePayouts")]
+        public async Task<IActionResult> GeneratePayouts()
+        {
+            if (ModelState.IsValid)
+            {
+                return Ok(await _payoutRepository.GeneratePayouts());
+            }
+            return BadRequest();
+        }
     }
 }

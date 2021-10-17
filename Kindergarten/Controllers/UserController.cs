@@ -1,5 +1,6 @@
 ﻿using Kindergarten.Interfaces;
 using Kindergarten.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,16 @@ namespace Kindergarten.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
+        private readonly IRoleRepository _roleRepository;
+        private readonly IJwtAutenticationManager _jwtAutenticationManager;
 
-        public UserController(IUserRepository userRepository)
+
+        public UserController(IUserRepository userRepository, IRoleRepository roleRepository, IJwtAutenticationManager jwtAutenticationManager)
         {
             _userRepository = userRepository;
+            _roleRepository = roleRepository;
+            _jwtAutenticationManager = jwtAutenticationManager;
+
         }
 
         // GET: User
@@ -92,5 +99,55 @@ namespace Kindergarten.Controllers
             }
             return BadRequest();
         }
+
+        [HttpPost("Register/Employee")]
+        public async Task<IActionResult> RegisterEmployee(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                User us = await _userRepository.GetByEmail(user.Email);
+                if (us == null)
+                    return Ok(await _userRepository.RegisterEmployee(user));
+                return BadRequest("exist");
+            }
+            return BadRequest();
+        }
+
+        [HttpPost("Register/Parent")]
+        public async Task<IActionResult> RegisterParent(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                User us = await _userRepository.GetByEmail(user.Email);
+                if (us == null)
+                    return Ok(await _userRepository.RegisterParent(user));
+                return BadRequest("exist");
+            }
+            return BadRequest();
+        }
+
+        // POST: User/Login
+        [AllowAnonymous]
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(User user)
+        {
+            User us = await _userRepository.GetByEmail(user.Email);
+            if (us == null)
+                return Unauthorized("not exist");
+            bool verified = BCrypt.Net.BCrypt.Verify(user.Password, us.Password);
+
+            if (!verified)
+                return Unauthorized("wrong password");
+
+            Role role = await _roleRepository.Get(us.RoleId);
+
+            var token = _jwtAutenticationManager.Authenticate(us, role);
+
+            if (token == null)
+                return Unauthorized("no token");
+
+            return Ok(token);
+        }
+
     }
 }

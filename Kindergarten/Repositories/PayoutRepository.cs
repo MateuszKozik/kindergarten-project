@@ -18,7 +18,7 @@ namespace Kindergarten.Repositories
             Payout p = new Payout
             {
                 PayoutDate = payout.PayoutDate,
-                Amount = payout.Amount,             
+                Amount = payout.Amount,
                 EmployeeId = payout.EmployeeId
             };
             _context.Add(p);
@@ -58,5 +58,28 @@ namespace Kindergarten.Repositories
             }
             return p;
         }
+
+        public async Task<Payout> GeneratePayouts()
+        {
+            Payout payout = null;
+            foreach (var employee in await _context.Employees.ToListAsync())
+            {
+                Payout lastPayout = await _context.Payouts.Where(x => x.EmployeeId == employee.Id).OrderByDescending(x => x.PayoutDate).FirstOrDefaultAsync();
+                if (lastPayout != null)
+                {
+                    if (lastPayout.PayoutDate.AddMonths(1) <= DateTime.Now)
+                    {
+                        payout = await Add(new Payout { Amount = employee.Salary, EmployeeId = employee.Id, PayoutDate = DateTime.Now });
+                    }
+                }
+                else
+                {
+                    payout = await Add(new Payout { Amount = employee.Salary, EmployeeId = employee.Id, PayoutDate = DateTime.Now });
+                }
+            }
+            return payout;
+        }
+
+        public async Task<List<Payout>> GetByEmployee(int employeeId) => await _context.Payouts.Where(x => x.EmployeeId == employeeId).ToListAsync();
     }
 }

@@ -11,20 +11,29 @@ namespace Kindergarten.Repositories
     public class SaveRepository : ISaveRepository
     {
         private readonly DatabaseContext _context;
-        public SaveRepository(DatabaseContext context) { _context = context; }
+        public SaveRepository(DatabaseContext context) 
+        { 
+            _context = context;
+        }
 
         public async Task<Save> Add(Save save)
         {
             Save s = new Save
             {
-                SavingDate = save.SavingDate,
-                StatusId = save.StatusId,
+                SavingDate = DateTime.Now,
+                StatusId = 2,
                 ChildId = save.ChildId,
                 GroupId = save.GroupId
             };
             _context.Add(s);
             await _context.SaveChangesAsync();
 
+            _context.Add(new Payment { PaymentDate = DateTime.Now.AddDays(7),Amount = 400, PayoutDate = null, StatusId = 2, SaveId = s.Id });
+            await _context.SaveChangesAsync();
+
+            Group group = await _context.Groups.Where(x => x.Id == save.GroupId).FirstOrDefaultAsync();
+            group.FreePlaces--;
+            await _context.SaveChangesAsync();
             return s;
         }
 
@@ -59,6 +68,22 @@ namespace Kindergarten.Repositories
                 await _context.SaveChangesAsync();
             }
             return s;
+        }
+
+        public async Task<Save> Unsubscribe(int id)
+        {
+            Save save = await Get(id);
+            if(save != null)
+            {
+                save.StatusId = 3;
+              
+
+                Group group = await _context.Groups.Where(x => x.Id == save.GroupId).FirstOrDefaultAsync();
+                group.FreePlaces++;
+                await _context.SaveChangesAsync();
+                return await Update(save);
+            }
+            return save;
         }
     }
 }
