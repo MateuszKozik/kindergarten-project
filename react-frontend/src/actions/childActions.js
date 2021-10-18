@@ -45,3 +45,21 @@ export const deleteChild = async (childId) => {
             console.log(error);
         }
 }
+
+export const addByParent = async (id,child) => {
+    try{
+        const res = await axios.post(`${hostName}/Child/AddByParent/${id}`,child);
+        return res;
+        }catch(error){
+            console.log(error);
+        }
+}
+
+export const getIsSaved = async (childId) => {
+    try{
+        const res = await axios.get(`${hostName}/Child/IsSaved/${childId}`);
+        return res;
+        }catch(error){
+            console.log(error);
+        }
+}

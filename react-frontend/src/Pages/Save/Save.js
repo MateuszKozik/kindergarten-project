@@ -3,8 +3,7 @@ import Navbar from "../Navbar";
 
 
 import {
-	getSaves,
-    deleteSave
+	getSaves
 } from "../../actions/saveActions";
 import {
 	getChildes
@@ -15,6 +14,12 @@ import {
 import {
 	getSaveStatuses
 } from "../../actions/saveStatusActions";
+import {
+	unsubscribe
+} from "../../actions/saveActions";
+import {
+	pay
+} from "../../actions/paymentActions";
 
 import {
 	Grid,
@@ -147,24 +152,28 @@ export class Save extends Component {
 														variant="contained"
 														color="primary"
 														onClick={() => {
-															this.props.history.push(`/updateSave/${save.id}`)
-														}}
-													>
-														Aktualizuj
-												</Button>
-													<Button style={{ marginLeft: 10 }}
-														variant="contained"
-														color="primary"
-														onClick={() => {
-                                                           
-                                                            deleteSave(save.id).then((res) => {
+															pay(save.id).then((res) => {
                                                                 if(res && res.status === 200){
                                                                    window.location.href = "/save";
                                                                 }
                                                             });
 														}}
 													>
-														Usuń
+														Zapłać
+												</Button>
+													<Button style={{ marginLeft: 10 }}
+														variant="contained"
+														color="primary"
+														onClick={() => {
+															
+															pay(save.id).then((res) => {
+                                                                if(res && res.status === 200){
+                                                                   window.location.href = "/save";
+                                                                }
+                                                            });
+														}}
+													>
+														Wypisz
 												</Button>
                                                 
 												</TableCell>

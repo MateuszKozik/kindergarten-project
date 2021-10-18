@@ -4,6 +4,9 @@ import {
     addEmployee
 } from "../../actions/employeeActions";
 import {
+    registerEmployee
+} from "../../actions/userActions";
+import {
 	getAddresses
 } from "../../actions/addressActions";
 import {
@@ -31,6 +34,8 @@ class AddEmployee extends Component {
         phoneNumber: "",
         position: "",
         salary: "",
+		email: "",
+        password: "",
         addressId: "",
         userId: "",
 		address: [],
@@ -55,13 +60,21 @@ class AddEmployee extends Component {
     
 
     handleAddEmployee = () => {
-		const {name,surname,phoneNumber,position,salary,addressId,userId} = this.state;
-		const employee = {name,surname,phoneNumber,position,salary,addressId,userId};
-        addEmployee(employee).then((res) => {
-            if(res && res.status === 200){
-                window.location.href = "/employee";
-            }
-	    });
+		
+		const {email,password} = this.state;
+		const user = {email, password};
+		registerEmployee(user).then((res) =>{
+			this.setState({userId: res.data.id});
+			const {name,surname,phoneNumber,position,salary,addressId,userId} = this.state;
+			const employee = {name,surname,phoneNumber,position,salary,addressId,userId};
+				addEmployee(employee).then((res) => {
+					if(res && res.status === 200){
+						window.location.href = "/employee";
+					}
+				});
+			
+			
+		});
 	
 	};
 
@@ -162,34 +175,29 @@ class AddEmployee extends Component {
 									</Select> 
                                     </FormControl>   
 									</Grid> 
-                                    <Grid item xs={12} >  
-                                    <FormControl
-                                        required
-                                        variant="outlined"
-                                    >       
-                                    <InputLabel id="user-label">Użytkownik</InputLabel>                         
-                                        <Select
-                                        labelId="user-label"
-										id="userId"
-										name="userId"
-										value={this.state.userId}
-										onChange={this.handleChange}
-                                        label="Użytkownik"
-                                        style={{ width: 225 }}
-                                        
-									>
-										
-										{this.state.user[0] && this.state.user[0].map((user) => (
-												<MenuItem
-													key={user.id}
-                                                    value={user.id}
-												>
-													{user.email}
-												</MenuItem>
-                                                
-                                        ))}
-									</Select>    
-                                    </FormControl> 
+                                    <Grid item xs={12}>
+										<TextField
+											
+											id="email"
+											name="email"
+											onChange={this.handleChange}
+											label="Email"
+											required
+                                            variant="outlined"
+                                            
+										/>
+									</Grid>
+									<Grid item xs={12}>
+										<TextField
+											
+											id="password"
+											name="password"
+											onChange={this.handleChange}
+                                            label="Hasło"
+                                            required
+                                            variant="outlined"
+                                            type="password"
+										/>
 									</Grid>
 								</Grid>
 							</Grid>

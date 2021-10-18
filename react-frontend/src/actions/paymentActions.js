@@ -45,3 +45,12 @@ export const deletePayment = async (paymentId) => {
             console.log(error);
         }
 }
+
+export const pay = async (saveId) => {
+    try{
+        const res = await axios.get(`${hostName}/Payment/Pay/${saveId}`);
+        return res;
+        }catch(error){
+            console.log(error);
+        }
+}

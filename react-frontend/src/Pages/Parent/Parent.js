@@ -181,7 +181,7 @@ export class Parent extends Component {
 								this.props.history.push(`/addParent`)
 							}
 						>
-							Dodaj rodzica
+							Uzupełni dane 
 						</Button>
 					</Grid>
 					

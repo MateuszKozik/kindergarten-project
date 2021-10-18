@@ -9,17 +9,16 @@ import {
 import {
     getUsers
 } from "../../actions/userActions";
+import {
+    addAddress
+} from "../../actions/addressActions";
 
 
 import {
 	Grid,
 	Typography,
 	Button,
-    TextField,
-    Select,
-    MenuItem,
-    InputLabel ,
-    FormControl
+    TextField
 } from "@material-ui/core";
 
 
@@ -31,8 +30,11 @@ class AddParent extends Component {
         phoneNumber: "",
         addressId: "",
         userId: "",
-		address: [],
-        user: []
+		street: "",
+        houseNumber: 0,
+        flatNumber: 0,
+        postCode: "",
+        city: ""
 	};
 
 	handleChange = (e) => {
@@ -53,15 +55,39 @@ class AddParent extends Component {
     
 
     handleAddParent = () => {
-		const {name,surname,phoneNumber,addressId,userId} = this.state;
-		const parent = {name,surname,phoneNumber,addressId,userId};
-        addParent(parent).then((res) => {
-            if(res && res.status === 200){
-                window.location.href = "/parent";
-            }
+
+		const token = localStorage.getItem("token");
+		if (token) {
+			var base64Url = token.split(".")[1];
+			var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+			var jsonPayload = decodeURIComponent(
+				atob(base64)
+					.split("")
+					.map(function (c) {
+						return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+					})
+					.join("")
+			);
+			var user = JSON.parse(jsonPayload);
+			this.setState({userId: user.Id});
+		
+		}
+		const {street,houseNumber,flatNumber,postCode,city} = this.state;
+		const address = {street,houseNumber,flatNumber,postCode,city};
+		addAddress(address).then((res) => {
+            this.setState({addressId: res.data.id});
+			const {name,surname,phoneNumber,addressId,userId} = this.state;
+			const parent = {name,surname,phoneNumber,addressId,userId};
+				addParent(parent).then((res) => {
+				if(res && res.status === 200){
+					window.location.href = "/parent";
+				}
+				
+			});
 	    });
-	
 	};
+		
+		
 
     render() {
 		return (
@@ -77,7 +103,7 @@ class AddParent extends Component {
 					<Grid item xs={12} style={{ marginTop: 15 }}>
 						<Grid container>
 							<Grid item xs={false} md={4} />
-							<Grid item xs={12} md={4}>
+							<Grid item xs={6} md={4}>
 								<Grid container spacing={2}>
 									<Grid item xs={12}>
 										<TextField
@@ -112,64 +138,69 @@ class AddParent extends Component {
 										/>
 									</Grid>
                                    
-                                    <Grid item xs={12} >   
-                                    <FormControl
-                                        required
-                                        variant="outlined"
-                                    >
-                                    <InputLabel id="address-label">Adres</InputLabel>                      
-                                        <Select
-                                        labelId="address-label"
-										id="addressId"
-                                        name="addressId"        
-										value={this.state.addressId}
-                                        onChange={this.handleChange}
-                                        label="Adres"                                    
-                                        style={{ width: 225 }}
-									>
-										
-										{this.state.address[0] && this.state.address[0].map((address) => (
-												<MenuItem
-													key={address.id}
-													value={address.id}
-												>
-													{address.city+","+address.street+","+address.postCode}
-												</MenuItem>
-                                                
-                                        ))}
-									</Select> 
-                                    </FormControl>   
-									</Grid> 
-                                    <Grid item xs={12} >  
-                                    <FormControl
-                                        required
-                                        variant="outlined"
-                                    >       
-                                    <InputLabel id="user-label">Użytkownik</InputLabel>                         
-                                        <Select
-                                        labelId="user-label"
-										id="userId"
-										name="userId"
-										value={this.state.userId}
-										onChange={this.handleChange}
-                                        label="Użytkownik"
-                                        style={{ width: 225 }}
-                                        
-									>
-										
-										{this.state.user[0] && this.state.user[0].map((user) => (
-												<MenuItem
-													key={user.id}
-                                                    value={user.id}
-												>
-													{user.email}
-												</MenuItem>
-                                                
-                                        ))}
-									</Select>    
-                                    </FormControl> 
-									</Grid>
+                                   
+                                    
 								</Grid>
+							</Grid>
+							<Grid item xs={6} md={4}>
+								<Grid container spacing={2}>
+									<Grid item xs={12}>
+												<TextField
+													
+													id="city"
+													name="city"
+													onChange={this.handleChange}
+													label="Miasto"
+													required
+													variant="outlined"
+												/>
+											</Grid>
+											<Grid item xs={12}>
+												<TextField
+													
+													id="street"
+													name="street"
+													onChange={this.handleChange}
+													label="Ulica"
+													required
+													variant="outlined"
+												/>
+											</Grid>
+											<Grid item xs={12}>
+												<TextField
+													
+													id="houseNumber"
+													name="houseNumber"
+													onChange={this.handleChangeNumber}
+													label="Numer domu"
+													type="number"
+													required
+													variant="outlined"
+												/>
+											</Grid>  
+											<Grid item xs={12}>
+												<TextField
+													
+													id="flatNumber"
+													name="flatNumber"
+													onChange={this.handleChangeNumber}
+													label="Numer mieszkania"
+													type="number"
+													variant="outlined"
+												/>
+											</Grid> 
+											<Grid item xs={12}>
+												<TextField
+													
+													id="postCode"
+													name="postCode"
+													onChange={this.handleChange}
+													label="Kod pocztowy"
+													required
+													variant="outlined"
+												/>
+											</Grid> 
+										</Grid>
 							</Grid>
 							<Grid item xs={false} md={4} />
 						</Grid>

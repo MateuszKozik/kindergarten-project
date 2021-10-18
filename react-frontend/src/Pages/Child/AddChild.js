@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import Navbar from "../Navbar";
 import {
-    addChild
+    getByUser
+} from "../../actions/parentActions";
+
+import {
+    addByParent
 } from "../../actions/childActions";
 
 import {
@@ -29,13 +33,33 @@ class AddChild extends Component {
 
 
     handleAddChild = () => {
+		const token = localStorage.getItem("token");
+		if (token) {
+			var base64Url = token.split(".")[1];
+			var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+			var jsonPayload = decodeURIComponent(
+				atob(base64)
+					.split("")
+					.map(function (c) {
+						return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+					})
+					.join("")
+			);
+			var user = JSON.parse(jsonPayload);
+			
+		
+		}
 		const {name,surname,pesel,specialRequirements} = this.state;
 		const child = {name,surname,pesel,specialRequirements};
-        addChild(child).then((res) => {
-            if(res && res.status === 200){
-                window.location.href = "/child";
-            }
-	    });
+		getByUser(user.Id).then((res) => {
+			addByParent(res.data.id,child).then((res) => {
+				if(res && res.status === 200){
+					window.location.href = "/child";
+				}
+			})
+		});
+		
+		
 	
 	};
 

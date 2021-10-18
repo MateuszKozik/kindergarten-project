@@ -63,9 +63,19 @@ export const login = async (user) => {
 	}
 };
 
-export const registerUser = async (user) => {
+export const registerParent = async (user) => {
 	try {
-		const res = await axios.post(`${hostName}/User/RegisterUser`, user);
+		const res = await axios.post(`${hostName}/User/Register/Parent`, user);
+		return res;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+
+export const registerEmployee = async (user) => {
+	try {
+		const res = await axios.post(`${hostName}/User/Register/Employee`, user);
 		return res;
 	} catch (error) {
 		console.log(error);

@@ -77,7 +77,7 @@ class AddGroup extends Component {
 											id="name"
 											name="name"
 											onChange={this.handleChange}
-											label="Imię"
+											label="Nazwa"
 											required
 											variant="outlined"
 										/>

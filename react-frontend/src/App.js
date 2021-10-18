@@ -46,6 +46,9 @@ import UpdatePayment from "./Pages/Payment/UpdatePayment";
 import ParentChild from "./Pages/ParentChild/ParentChild";
 import AddParentChild from "./Pages/ParentChild/AddParentChild";
 
+import Register from "./Pages/Login/Register";
+import Login from "./Pages/Login/Login";
+
 
 function App() {
 	return (
@@ -98,6 +101,8 @@ function App() {
 				<Route exact path="/parentChild" component={ParentChild} />
 				<Route exact path="/addParentChild" component={AddParentChild} />
 				
+				<Route exact path="/register" component={Register} />
+				<Route exact path="/login" component={Login} />
 
 			</div>
 		</Router>

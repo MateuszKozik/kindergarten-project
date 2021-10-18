@@ -95,7 +95,7 @@ export default function Navbar() {
                                 marginLeft: 5
                             }}
                         >
-                            Rodzic
+                            Dane
 						</Link>
                         <Link
                             to="/payout"

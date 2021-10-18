@@ -19,6 +19,15 @@ export const getParent = async (parentId) => {
         }
 }
 
+export const getByUser = async (userId) => {
+    try{
+        const res = await axios.get(`${hostName}/Parent/GetByUser/${userId}`);
+        return res;
+        }catch(error){
+            console.log(error);
+        }
+}
+
 export const addParent = async (parent) => {
     try{
         const res = await axios.post(`${hostName}/Parent/Add`,parent);

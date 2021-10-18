@@ -19,6 +19,15 @@ export const getGroup = async (groupId) => {
         }
 }
 
+export const getAllActive = async () => {
+    try{
+        const res = await axios.get(`${hostName}/Group/GetAllActive`);
+        return res;
+        }catch(error){
+            console.log(error);
+        }
+}
+
 export const addGroup = async (group) => {
     try{
         const res = await axios.post(`${hostName}/Group/Add`,group);

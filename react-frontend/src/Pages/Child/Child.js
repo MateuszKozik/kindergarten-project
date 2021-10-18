@@ -3,8 +3,13 @@ import Navbar from "../Navbar";
 
 
 import {
-	getChildes,
-    deleteChild
+	getChildes
+} from "../../actions/childActions";
+import {
+	getByUser
+} from "../../actions/parentActions";
+import {
+	getIsSaved
 } from "../../actions/childActions";
 
 import {
@@ -24,13 +29,41 @@ import {
 
 export class Child extends Component {
 	state = {
-		data: []
+		data: [],
+		addressId: "",
+		status: ""
 
 	};
+
+	
 
 	componentDidMount() {
 		getChildes().then((res) => {
 			this.setState({ data: [res.data] });
+        });
+		const token = localStorage.getItem("token");
+		if (token) {
+			var base64Url = token.split(".")[1];
+			var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+			var jsonPayload = decodeURIComponent(
+				atob(base64)
+					.split("")
+					.map(function (c) {
+						return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+					})
+					.join("")
+			);
+			var user = JSON.parse(jsonPayload);
+			
+		
+		}
+		getByUser(user.Id).then((res) => {
+			this.setState({ addressId: res.data.addressId });
+        });
+		
+		getIsSaved(1).then((res) => {
+			this.setState({ status: res.data });
+			
         });
         
 
@@ -43,7 +76,7 @@ export class Child extends Component {
 
 
 	render() {
-        console.log(this.state.data)
+        
 		return (
 			<>
 				<Navbar/>
@@ -78,6 +111,7 @@ export class Child extends Component {
 								</TableHead>
 								<TableBody>
 									{this.state.data[0] && this.state.data[0].map((child) => {
+										
 										return (
 											<TableRow key={child.id}>
 												<TableCell>
@@ -100,35 +134,25 @@ export class Child extends Component {
 														{child.specialRequirements}
 													</Typography>
 												</TableCell>
-                                                
-												
+                                                	
 												
 												<TableCell align="center">
-                                                <Button style={{ marginLeft: 10 }}
-														variant="contained"
-														color="primary"
-														onClick={() => {
-															this.props.history.push(`/updateChild/${child.id}`)
-														}}
-													>
-														Aktualizuj
-												</Button>
-													<Button style={{ marginLeft: 10 }}
-														variant="contained"
-														color="primary"
-														onClick={() => {
-                                                           
-                                                            deleteChild(child.id).then((res) => {
-                                                                if(res && res.status === 200){
-                                                                   window.location.href = "/child";
-                                                                }
-                                                            });
-														}}
-													>
-														Usuń
-												</Button>
                                                 
+													
+												<Button style={{ marginLeft: 10 }}
+														variant="contained"
+														color="primary"
+														onClick={() => {
+                                                           localStorage.setItem("childId",child.id);
+														   window.location.href = "/addSave";
+														}}
+													>
+														Zapisz
+												</Button>
+												
+											
 												</TableCell>
+												
 											</TableRow>
 
 										);
@@ -138,6 +162,7 @@ export class Child extends Component {
 							</Table>
 						</TableContainer>
 					</Grid>
+					{this.state.addressId != null ?(
                     <Grid item xs={12} style={{ textAlign: "left", marginLeft: 10, marginTop: 30 }}>
 						<Button
 							variant="contained"
@@ -149,6 +174,7 @@ export class Child extends Component {
 							Dodaj dziecko
 						</Button>
 					</Grid>
+					):null}
 					
 				</Grid>
 
