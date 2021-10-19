@@ -45,3 +45,13 @@ export const deleteEmployee = async (employeeId) => {
             console.log(error);
         }
 }
+
+
+export const getByUser = async (userId) => {
+    try{
+        const res = await axios.get(`${hostName}/Employee/GetByUser/${userId}`);
+        return res;
+        }catch(error){
+            console.log(error);
+        }
+}

@@ -23,7 +23,7 @@ import {
 
 
 
-export class Parent extends Component {
+export class Payout extends Component {
 	state = {
 		data: [],
 		employee: []
@@ -165,4 +165,4 @@ export class Parent extends Component {
 
 
 
-export default Parent;
+export default Payout;

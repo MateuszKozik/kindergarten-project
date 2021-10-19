@@ -45,3 +45,12 @@ export const deletePayout = async (payoutId) => {
             console.log(error);
         }
 }
+
+export const getByEmployee = async (employeeId) => {
+    try{
+        const res = await axios.get(`${hostName}/Payout/GetByEmployee/${employeeId}`);
+        return res;
+        }catch(error){
+            console.log(error);
+        }
+}

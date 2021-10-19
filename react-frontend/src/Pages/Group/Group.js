@@ -50,7 +50,7 @@ export class Group extends Component {
 
 
 	render() {
-        console.log(this.state.data);
+        
 		return (
 			<>
 				<Navbar/>

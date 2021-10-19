@@ -24,6 +24,7 @@ import AddParent from "./Pages/Parent/AddParent";
 import UpdateParent from "./Pages/Parent/UpdateParent";
 
 import Payout from "./Pages/Payout/Payout";
+import PayoutEmployee from "./Pages/Payout/PayoutEmployee";
 import AddPayout from "./Pages/Payout/AddPayout";
 import UpdatePayout from "./Pages/Payout/UpdatePayout";
 
@@ -48,6 +49,10 @@ import AddParentChild from "./Pages/ParentChild/AddParentChild";
 
 import Register from "./Pages/Login/Register";
 import Login from "./Pages/Login/Login";
+
+import AddWebPush from "./Pages/WebPush/AddWebPush";
+
+import ClassList from "./Pages/Group/ClassList";
 
 
 function App() {
@@ -79,6 +84,7 @@ function App() {
 				<Route exact path="/updateParent/:id" component={UpdateParent} />
 
 				<Route exact path="/payout" component={Payout} />
+				<Route exact path="/payoutEmployee" component={PayoutEmployee} />
 				<Route exact path="/addPayout" component={AddPayout} />
 				<Route exact path="/updatePayout/:id" component={UpdatePayout} />
 
@@ -102,7 +108,11 @@ function App() {
 				<Route exact path="/addParentChild" component={AddParentChild} />
 				
 				<Route exact path="/register" component={Register} />
-				<Route exact path="/login" component={Login} />
+				<Route exact path="/" component={Login} />
+
+				<Route exact path="/addWebPush" component={AddWebPush} />
+
+				<Route exact path="/classList" component={ClassList} />
 
 			</div>
 		</Router>

@@ -166,7 +166,7 @@ export class Save extends Component {
 														color="primary"
 														onClick={() => {
 															
-															pay(save.id).then((res) => {
+															unsubscribe(save.id).then((res) => {
                                                                 if(res && res.status === 200){
                                                                    window.location.href = "/save";
                                                                 }

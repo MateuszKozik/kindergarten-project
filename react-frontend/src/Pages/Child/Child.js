@@ -137,8 +137,8 @@ export class Child extends Component {
                                                 	
 												
 												<TableCell align="center">
-                                                
-													
+												
+												
 												<Button style={{ marginLeft: 10 }}
 														variant="contained"
 														color="primary"
@@ -156,6 +156,7 @@ export class Child extends Component {
 											</TableRow>
 
 										);
+									
 									})}
 
 								</TableBody>

@@ -63,3 +63,12 @@ export const getIsSaved = async (childId) => {
             console.log(error);
         }
 }
+
+export const getByGroup = async (groupId) => {
+    try{
+        const res = await axios.get(`${hostName}/child/GetByGroup/${groupId}`);
+        return res;
+        }catch(error){
+            console.log(error);
+        }
+}

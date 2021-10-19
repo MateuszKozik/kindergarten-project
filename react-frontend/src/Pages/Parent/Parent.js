@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import Navbar from "../Navbar";
 import {
+	getByUser,
 	getParents,
     deleteParent
 } from "../../actions/parentActions";
 import {
-	getAddresses
+	getAddress
 } from "../../actions/addressActions";
 import {
-	getUsers
+	getUser
 } from "../../actions/userActions";
 
 import {
@@ -30,21 +31,47 @@ export class Parent extends Component {
 	state = {
 		data: [],
 		address: [],
-		user: []
+		user: [],
+		userr: [],
+		userId: ""
 
 	};
 
 	componentDidMount() {
+		const token = localStorage.getItem("token");
+		if (token) {
+			var base64Url = token.split(".")[1];
+			var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+			var jsonPayload = decodeURIComponent(
+				atob(base64)
+					.split("")
+					.map(function (c) {
+						return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+					})
+					.join("")
+			);
+			var user = JSON.parse(jsonPayload);
+			this.setState({ userId: user.Id });
+			
+		
+		}
+		getByUser(user.Id).then((res) => {
+			this.setState({ userr: res.data });
+			
+			getAddress(res.data.addressId).then((res) => {
+				this.setState({ address: res.data });
+			});
+			getUser(res.data.userId).then((res) => {
+				this.setState({ user: res.data });
+				
+			});
+		});
 		getParents().then((res) => {
 			this.setState({ data: [res.data] });
-		});
-		getAddresses().then((res) => {
-			this.setState({ address: [res.data] });
-		});
-		getUsers().then((res) => {
-			this.setState({ user: [res.data] });
 			
 		});
+		
+		
 		
 		
 
@@ -90,84 +117,38 @@ export class Parent extends Component {
 										<TableCell >
 											<Typography align="center">Użytkownik</Typography>
 										</TableCell>
-										<TableCell >
-											<Typography align="center">Akcje</Typography>
-										</TableCell>
+										
 									</TableRow>
 								</TableHead>
 								<TableBody>
-									{this.state.data[0] && this.state.data[0].map((parent) => {
-										
-										return (
-											<TableRow key={parent.id}>
+								<TableRow key={this.state.userr.id}>
 												<TableCell>
 													<Typography >
-														{parent.name}
+														{this.state.userr.name}
 													</Typography>
-												</TableCell>
-                                                <TableCell>
-													<Typography align="center">
-														{parent.surname}
-													</Typography>
-												</TableCell>
-                                                <TableCell>
-													<Typography align="center">
-														{parent.phoneNumber}
-													</Typography>
-												</TableCell>
-												
-                                                <TableCell>
-												{this.state.address[0] && this.state.address[0].map((address) => {
-													return(
-													<Typography align="center">
-														{parent.addressId === address.id ? address.city+","+address.street:''}
-														
-													</Typography>
-													)
-												})}
 												</TableCell>
 												<TableCell>
-												{this.state.user[0] && this.state.user[0].map((user) => {
-													return(
 													<Typography align="center">
-														{parent.userId === user.id ? user.email:''}
-														
+														{this.state.userr.surname}
 													</Typography>
-													)
-												})}
 												</TableCell>
-													
-												<TableCell align="center">
-                                                <Button style={{ marginLeft: 10 }}
-														variant="contained"
-														color="primary"
-														onClick={() => {
-															this.props.history.push(`/updateParent/${parent.id}`)
-														}}
-													>
-														Aktualizuj
-												</Button>
-													<Button style={{ marginLeft: 10 }}
-														variant="contained"
-														color="primary"
-														onClick={() => {
-                                                           
-                                                            deleteParent(parent.id).then((res) => {
-                                                                if(res && res.status === 200){
-                                                                   window.location.href = "/parent";
-                                                                }
-                                                            });
-														}}
-													>
-														Usuń
-												</Button>
-                                                
+												<TableCell>
+													<Typography align="center">
+														{this.state.userr.phoneNumber}
+													</Typography>
 												</TableCell>
+												<TableCell>
+													<Typography align="center">
+														{this.state.address.city+","+this.state.address.street}
+													</Typography>
+												</TableCell>
+												<TableCell>
+													<Typography align="center">
+														{this.state.user.email}
+													</Typography>
+												</TableCell>
+                                               
 											</TableRow>
-
-										);
-									
-									})}
 
 								</TableBody>
 							</Table>

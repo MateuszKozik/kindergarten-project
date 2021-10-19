@@ -54,3 +54,13 @@ export const deleteGroup = async (groupId) => {
             console.log(error);
         }
 }
+
+export const getByEmployee = async (employeeId) => {
+    try{
+        const res = await axios.get(`${hostName}/Group/GetByEmployee/${employeeId}`);
+        return res;
+        }catch(error){
+            console.log(error);
+        }
+}
+

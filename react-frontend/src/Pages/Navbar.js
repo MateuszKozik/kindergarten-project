@@ -4,6 +4,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
+import { MenuItem } from "@material-ui/core";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -18,15 +19,25 @@ const useStyles = makeStyles((theme) => ({
     },
     margin: {
         marginLeft: theme.spacing(2)
-    }
+    },
+	logoutButton: {
+		position: "relative",
+		[theme.breakpoints.up("sm")]: {
+			marginLeft: "auto"
+		}
+	}
 }));
+
+const handleLogout = () => {
+	localStorage.clear();
+	window.location.href = "/";
+};
 
 export default function Navbar() {
 
     const classes = useStyles();
 
-    return (
-        <div className={classes.root}>
+    const employeeIsAuthenticated = (
             <AppBar position="static">
                 <Toolbar>
 
@@ -163,12 +174,78 @@ export default function Navbar() {
                         >
                             Powiązanie
 						</Link>
+                        <Link
+                            to="/payoutEmployee"
+                            style={{
+                                fontWeight: 700,
+                                textDecoration: "none",
+                                color: "#fff",
+                                marginLeft: 5
+                            }}
+                        >
+                            wypłata pracownika
+						</Link>
+                        <Link
+                            to="/addWebPush"
+                            style={{
+                                fontWeight: 700,
+                                textDecoration: "none",
+                                color: "#fff",
+                                marginLeft: 5
+                            }}
+                        >
+                            Wiadomość
+						</Link>
+                        <Link
+                            to="/classList"
+                            style={{
+                                fontWeight: 700,
+                                textDecoration: "none",
+                                color: "#fff",
+                                marginLeft: 5
+                            }}
+                        >
+                            Lista obecności
+						</Link>
                         
                     </Typography>
-                    
+                    <MenuItem
+					className={classes.logoutButton}
+					onClick={() => handleLogout()}
+				>
+					Wyloguj
+				</MenuItem>
 
                 </Toolbar>
             </AppBar>
-        </div>
-    );
+   );
+
+   const token = localStorage.getItem("token");
+	if (token) {
+		var base64Url = token.split(".")[1];
+		var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+		var jsonPayload = decodeURIComponent(
+			atob(base64)
+				.split("")
+				.map(function (c) {
+					return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+				})
+				.join("")
+		);
+		var role = JSON.parse(jsonPayload);
+	} else {
+		window.location.href = "/login";
+	}
+	let headerLinks;
+
+	if (role) {
+		if (role.role === "admin") {
+			//headerLinks = adminIsAuthenticated;
+		} else if (role.role === "employee") {
+			headerLinks = employeeIsAuthenticated;
+		} else if (role.role === "parent") {
+			//headerLinks = parentIsAuthenticated;
+		}
+	}
+	return <div className={classes.root}>{headerLinks}</div>;
 }
