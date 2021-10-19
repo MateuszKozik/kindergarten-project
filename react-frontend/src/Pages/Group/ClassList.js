@@ -19,7 +19,6 @@ import {
 import {
 	Grid,
 	Typography,
-	Button,
 	Table,
 	TableBody,
 	TableCell,
@@ -57,17 +56,18 @@ export class ClassList extends Component {
 		
 		}
 		getByUser(user.Id).then((res) => {
-			
-            getByEmployee(res.data.id).then((res) => {
-             
-                this.setState({ name: res.data[0].name });
-                
-                getByGroup(res.data[0].id).then((res) => {
-                    
-                   this.setState({ data: [res.data[0].saves] });        
-                          
-                });
-            });
+			if(res.data.id){
+				getByEmployee(res.data.id).then((res) => {
+				
+					this.setState({ name: res.data[0].name });
+					
+					getByGroup(res.data[0].id).then((res) => {
+						
+					this.setState({ data: [res.data[0].saves] });        
+							
+					});
+				});
+			}
         });
         getChildes().then((res) => {
               this.setState({ child: [res.data] }); 

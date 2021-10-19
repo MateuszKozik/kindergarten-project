@@ -111,7 +111,7 @@ export class Save extends Component {
                                                 <TableCell>
 												{this.state.child[0] && this.state.child[0].map((child) => {
 													return(
-													<Typography align="center">
+													<Typography >
 														{save.childId === child.id ? child.name+","+ child.surname:''}
 														
 													</Typography>
@@ -148,6 +148,8 @@ export class Save extends Component {
 												
 												
 												<TableCell align="center">
+													{save.statusId === 2 || save.statusId === 3 ? 
+													
                                                 <Button style={{ marginLeft: 10 }}
 														variant="contained"
 														color="primary"
@@ -161,6 +163,10 @@ export class Save extends Component {
 													>
 														Zapłać
 												</Button>
+													
+												:null}
+												
+												{save.statusId !== 3  ? 
 													<Button style={{ marginLeft: 10 }}
 														variant="contained"
 														color="primary"
@@ -175,8 +181,10 @@ export class Save extends Component {
 													>
 														Wypisz
 												</Button>
-                                                
+												:null}	
+												
 												</TableCell>
+											
 											</TableRow>
 
 										);

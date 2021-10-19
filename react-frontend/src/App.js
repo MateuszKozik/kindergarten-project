@@ -114,6 +114,8 @@ function App() {
 
 				<Route exact path="/classList" component={ClassList} />
 
+				
+
 			</div>
 		</Router>
 	);

@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import Navbar from "../Navbar";
 import {
 	getByUser,
-	getParents,
-    deleteParent
+	getParents
 } from "../../actions/parentActions";
 import {
 	getAddress
@@ -58,14 +57,20 @@ export class Parent extends Component {
 		getByUser(user.Id).then((res) => {
 			this.setState({ userr: res.data });
 			
-			getAddress(res.data.addressId).then((res) => {
-				this.setState({ address: res.data });
-			});
-			getUser(res.data.userId).then((res) => {
-				this.setState({ user: res.data });
-				
-			});
+			if(res.data.userId){
+				getUser(res.data.userId).then((res) => {
+					this.setState({ user: res.data });
+					
+				});
+			}
+			if(res.data.addressId){
+				getAddress(res.data.addressId).then((res) => {
+					this.setState({ address: res.data });
+				});
+			}
+			
 		});
+		
 		getParents().then((res) => {
 			this.setState({ data: [res.data] });
 			
@@ -84,7 +89,7 @@ export class Parent extends Component {
 
 
 	render() {
-		
+		console.log(this.state.userr.length);
 		return (
 			<>
 				<Navbar/>
@@ -139,12 +144,12 @@ export class Parent extends Component {
 												</TableCell>
 												<TableCell>
 													<Typography align="center">
-														{this.state.address.city+","+this.state.address.street}
+														{this.state.address.city && this.state.address.city+","+this.state.address.street && this.state.address.street}
 													</Typography>
 												</TableCell>
 												<TableCell>
 													<Typography align="center">
-														{this.state.user.email}
+														{this.state.user.email && this.state.user.email}
 													</Typography>
 												</TableCell>
                                                
@@ -155,6 +160,7 @@ export class Parent extends Component {
 						</TableContainer>
 					</Grid>
                     <Grid item xs={12} style={{ textAlign: "left", marginLeft: 10, marginTop: 30 }}>
+						{!this.state.userr ?
 						<Button
 							variant="contained"
 							color="primary"
@@ -164,6 +170,7 @@ export class Parent extends Component {
 						>
 							Uzupełni dane 
 						</Button>
+						:null}
 					</Grid>
 					
 				</Grid>

@@ -11,7 +11,7 @@ import {
 import {
 	Grid,
 	Typography,
-	Button,
+
 	Table,
 	TableBody,
 	TableCell,
@@ -47,9 +47,11 @@ export class PayoutEmployee extends Component {
             
         }
         getByUser(user.Id).then((res) => {
-            getByEmployee(res.data.id).then((res) => {
-                this.setState({ data: [res.data] });
-            });
+			if(res.data.id){
+				getByEmployee(res.data.id).then((res) => {
+					this.setState({ data: [res.data] });
+				});
+			}
 		});
 		
 		

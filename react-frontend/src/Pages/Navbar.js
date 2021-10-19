@@ -37,7 +37,7 @@ export default function Navbar() {
 
     const classes = useStyles();
 
-    const employeeIsAuthenticated = (
+    const parentIsAuthenticated = (
             <AppBar position="static">
                 <Toolbar>
 
@@ -212,7 +212,7 @@ export default function Navbar() {
                     <MenuItem
 					className={classes.logoutButton}
 					onClick={() => handleLogout()}
-				>
+				    >
 					Wyloguj
 				</MenuItem>
 
@@ -242,9 +242,9 @@ export default function Navbar() {
 		if (role.role === "admin") {
 			//headerLinks = adminIsAuthenticated;
 		} else if (role.role === "employee") {
-			headerLinks = employeeIsAuthenticated;
+			//headerLinks = employeeIsAuthenticated;
 		} else if (role.role === "parent") {
-			//headerLinks = parentIsAuthenticated;
+			headerLinks = parentIsAuthenticated;
 		}
 	}
 	return <div className={classes.root}>{headerLinks}</div>;

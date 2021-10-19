@@ -21,7 +21,7 @@ export class Register extends Component {
             const user = { email, password };
             registerParent(user).then((res) => {
                 if (res && res.status === 200) {
-                    window.location.href = "/login";
+                    window.location.href = "/";
                 }
             });
         }

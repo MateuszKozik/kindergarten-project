@@ -102,107 +102,105 @@ class AddParent extends Component {
 					
 					<Grid item xs={12} style={{ marginTop: 15 }}>
 						<Grid container>
-							<Grid item xs={false} md={4} />
-							<Grid item xs={6} md={4}>
-								<Grid container spacing={2}>
-									<Grid item xs={12}>
-										<TextField
-											
-											id="name"
-											name="name"
-											onChange={this.handleChange}
-											label="Imię"
-											required
-											variant="outlined"
-										/>
-									</Grid>
-									<Grid item xs={12}>
-										<TextField
-											
-											id="surname"
-											name="surname"
-											onChange={this.handleChange}
-											label="Nazwisko"
-											required
-											variant="outlined"
-										/>
-									</Grid>
+                            <Grid item xs={false} md={4} />
+                                <Grid item xs={12} md={2}>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                
+                                                id="name"
+                                                name="name"
+                                                onChange={this.handleChange}
+                                                label="Imię"
+                                                required
+                                                variant="outlined"
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                
+                                                id="surname"
+                                                name="surname"
+                                                onChange={this.handleChange}
+                                                label="Nazwisko"
+                                                required
+                                                variant="outlined"
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12} style={{ marginBottom: 15 }}>
+                                            <TextField	
+                                                id="phoneNumber"
+                                                name="phoneNumber"
+                                                onChange={this.handleChange}
+                                                label="Numer telefonu"
+                                                required
+                                                variant="outlined"
+                                            />
+                                        </Grid>
+                                    </Grid>
+                        
+                        
+                        </Grid>
+                        <Grid item xs={12} md={2} >
+                            <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        
+                                        id="city"
+                                        name="city"
+                                        onChange={this.handleChange}
+                                        label="Miasto"
+                                        required
+                                        variant="outlined"
+                                    />
+                                    </Grid>
                                     <Grid item xs={12}>
-										<TextField	
-											id="phoneNumber"
-											name="phoneNumber"
-											onChange={this.handleChange}
-											label="Numer telefonu"
-											required
-											variant="outlined"
-										/>
-									</Grid>
-                                   
-                                   
-                                    
-								</Grid>
-							</Grid>
-							<Grid item xs={6} md={4}>
-								<Grid container spacing={2}>
-									<Grid item xs={12}>
-												<TextField
-													
-													id="city"
-													name="city"
-													onChange={this.handleChange}
-													label="Miasto"
-													required
-													variant="outlined"
-												/>
-											</Grid>
-											<Grid item xs={12}>
-												<TextField
-													
-													id="street"
-													name="street"
-													onChange={this.handleChange}
-													label="Ulica"
-													required
-													variant="outlined"
-												/>
-											</Grid>
-											<Grid item xs={12}>
-												<TextField
-													
-													id="houseNumber"
-													name="houseNumber"
-													onChange={this.handleChangeNumber}
-													label="Numer domu"
-													type="number"
-													required
-													variant="outlined"
-												/>
-											</Grid>  
-											<Grid item xs={12}>
-												<TextField
-													
-													id="flatNumber"
-													name="flatNumber"
-													onChange={this.handleChangeNumber}
-													label="Numer mieszkania"
-													type="number"
-													variant="outlined"
-												/>
-											</Grid> 
-											<Grid item xs={12}>
-												<TextField
-													
-													id="postCode"
-													name="postCode"
-													onChange={this.handleChange}
-													label="Kod pocztowy"
-													required
-													variant="outlined"
-												/>
-											</Grid> 
-										</Grid>
-							</Grid>
-							<Grid item xs={false} md={4} />
+                                        <TextField
+                                            id="street"
+                                            name="street"
+                                            onChange={this.handleChange}
+                                            label="Ulica"
+                                            required
+                                            variant="outlined"
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            
+                                            id="houseNumber"
+                                            name="houseNumber"
+                                            onChange={this.handleChangeNumber}
+                                            label="Numer domu"
+                                            type="number"
+                                            required
+                                            variant="outlined"
+                                        />
+                                    </Grid>  
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            
+                                            id="flatNumber"
+                                            name="flatNumber"
+                                            onChange={this.handleChangeNumber}
+                                            label="Numer mieszkania"
+                                            type="number"
+                                            variant="outlined"
+                                        />
+                                    </Grid> 
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            
+                                            id="postCode"
+                                            name="postCode"
+                                            onChange={this.handleChange}
+                                            label="Kod pocztowy"
+                                            required
+                                            variant="outlined"
+                                        />
+                                    </Grid>
+                                </Grid> 
+                        </Grid>
+                            
 						</Grid>
 					</Grid>
 					<Grid item xs={12}></Grid>
@@ -211,6 +209,7 @@ class AddParent extends Component {
 						<Button  variant="contained" color="primary" onClick={this.handleAddParent}>
 							Dodaj
 						</Button>
+                        
 					</Grid>
 					
 				</Grid>	
