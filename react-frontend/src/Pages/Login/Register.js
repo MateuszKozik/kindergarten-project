@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import { Grid, TextField, Typography, Button } from "@material-ui/core";
-import {
-	registerParent
-} from "../../actions/userActions";
+import { registerParent } from "../../actions/userActions";
 
 export class Register extends Component {
 	state = {
 		email: "",
 		password: "",
-        password_re: ""
+		password_re: ""
 	};
 
 	handleChange = (e) => {
@@ -16,15 +14,15 @@ export class Register extends Component {
 	};
 
 	handleRegister = () => {
-        if(this.state.password === this.state.password_re ){
-            const { email, password } = this.state;
-            const user = { email, password };
-            registerParent(user).then((res) => {
-                if (res && res.status === 200) {
-                    window.location.href = "/";
-                }
-            });
-        }
+		if (this.state.password === this.state.password_re) {
+			const { email, password } = this.state;
+			const user = { email, password };
+			registerParent(user).then((res) => {
+				if (res && res.status === 200) {
+					window.location.href = "/login";
+				}
+			});
+		}
 	};
 
 	render() {
@@ -61,7 +59,7 @@ export class Register extends Component {
 										variant="outlined"
 									/>
 								</Grid>
-                                <Grid item xs={12}>
+								<Grid item xs={12}>
 									<TextField
 										type="password"
 										id="password_re"
@@ -72,7 +70,6 @@ export class Register extends Component {
 										variant="outlined"
 									/>
 								</Grid>
-								
 							</Grid>
 						</Grid>
 						<Grid item xs={false} md={4} />
@@ -84,7 +81,7 @@ export class Register extends Component {
 						color="primary"
 						onClick={this.handleRegister}
 					>
-						Zarejestruj się 
+						Zarejestruj się
 					</Button>
 				</Grid>
 			</Grid>

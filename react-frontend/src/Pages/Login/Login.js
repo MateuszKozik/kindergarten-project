@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Grid, TextField, Typography, Button } from "@material-ui/core";
-import {
-	login
-} from "../../actions/userActions";
+import { login } from "../../actions/userActions";
 import { Link } from "react-router-dom";
 
 export class Login extends Component {
@@ -20,7 +18,28 @@ export class Login extends Component {
 		const user = { email, password };
 		login(user).then((res) => {
 			if (res && res.status === 200) {
-				window.location.href = "/home";
+				const token = localStorage.getItem("token");
+				if (token) {
+					var base64Url = token.split(".")[1];
+					var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+					var jsonPayload = decodeURIComponent(
+						atob(base64)
+							.split("")
+							.map(function (c) {
+								return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+							})
+							.join("")
+					);
+					var user = JSON.parse(jsonPayload);
+
+					if (user.role === "parent") {
+						window.location.href = "/parent";
+					} else if (user.role === "employee") {
+						window.location.href = "/classList";
+					} else if (user.role === "admin") {
+						window.location.href = "/address";
+					}
+				}
 			}
 		});
 	};
