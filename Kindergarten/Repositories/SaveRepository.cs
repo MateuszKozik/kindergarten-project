@@ -85,5 +85,21 @@ namespace Kindergarten.Repositories
             }
             return save;
         }
+        public async Task<IEnumerable<Save>> GetByParentId(int parentId)
+        {
+            List<Child> children = new List<Child>();
+            foreach (var item in await _context.ParentChildren.Where(x => x.ParentId == parentId).ToListAsync())
+            {
+                children.Add(await _context.Children.FindAsync(item.ChildId));
+            }
+
+            List<Save> saves = new List<Save>();
+            foreach (var child in children)
+            {
+                saves.AddRange(await _context.Saves.Where(x => x.ChildId == child.Id).ToListAsync());
+            }
+            return saves;
+        }
+
     }
 }

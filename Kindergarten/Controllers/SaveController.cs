@@ -91,5 +91,15 @@ namespace Kindergarten.Controllers
             }
             return BadRequest();
         }
+        
+        [HttpGet("GetByParent/{parentId}")]
+        public async Task<IActionResult> GetSaveByParentId(int parentId)
+        {
+            if (ModelState.IsValid)
+            {
+                return Ok(await _saveRepository.GetByParentId(parentId));
+            }
+            return BadRequest();
+        }
     }
 }

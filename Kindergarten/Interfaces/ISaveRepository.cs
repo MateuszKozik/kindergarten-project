@@ -14,5 +14,6 @@ namespace Kindergarten.Interfaces
         Task<Save> Update(Save save);
         Task<Save> Delete(int id);
         Task<Save> Unsubscribe(int id);
+        Task<IEnumerable<Save>> GetByParentId(int parentId);
     }
 }
