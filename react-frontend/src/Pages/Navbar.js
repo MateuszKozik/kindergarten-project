@@ -6,20 +6,19 @@ import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 import { MenuItem } from "@material-ui/core";
 
-
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1
-    },
-    menuButton: {
-        marginRight: theme.spacing(2)
-    },
-    title: {
-        flexGrow: 1
-    },
-    margin: {
-        marginLeft: theme.spacing(2)
-    },
+	root: {
+		flexGrow: 1
+	},
+	menuButton: {
+		marginRight: theme.spacing(2)
+	},
+	title: {
+		flexGrow: 1
+	},
+	margin: {
+		marginLeft: theme.spacing(2)
+	},
 	logoutButton: {
 		position: "relative",
 		[theme.breakpoints.up("sm")]: {
@@ -34,193 +33,201 @@ const handleLogout = () => {
 };
 
 export default function Navbar() {
+	const classes = useStyles();
 
-    const classes = useStyles();
+	const parentIsAuthenticated = (
+		<AppBar position="static">
+			<Toolbar>
+				<Link
+					to="/parent"
+					style={{
+						fontWeight: 500,
+						textDecoration: "none",
+						color: "#fff",
+						marginRight: 20
+					}}
+				>
+					Dane osobowe
+				</Link>
 
-    const parentIsAuthenticated = (
-            <AppBar position="static">
-                <Toolbar>
+				<Link
+					to="/child"
+					style={{
+						fontWeight: 500,
+						textDecoration: "none",
+						color: "#fff",
+						marginRight: 20
+					}}
+				>
+					Dzieci
+				</Link>
 
-                    <Typography className={classes.title}>
-                        <Link
-                            to="/address"
-                            style={{
-                                fontWeight: 700,
-                                textDecoration: "none",
-                                color: "#fff",
-                                marginLeft: 5
-                            }}
-                        >
-                            Adres
-						</Link>
-                        <Link
-                            to="/child"
-                            style={{
-                                fontWeight: 700,
-                                textDecoration: "none",
-                                color: "#fff",
-                                marginLeft: 5
-                            }}
-                        >
-                            Dziecko
-						</Link>
-                        <Link
-                            to="/employee"
-                            style={{
-                                fontWeight: 700,
-                                textDecoration: "none",
-                                color: "#fff",
-                                marginLeft: 5
-                            }}
-                        >
-                            Pracownik
-						</Link>
-                        <Link
-                            to="/user"
-                            style={{
-                                fontWeight: 700,
-                                textDecoration: "none",
-                                color: "#fff",
-                                marginLeft: 5
-                            }}
-                        >
-                            Użytkownik
-						</Link>
-                        <Link
-                            to="/group"
-                            style={{
-                                fontWeight: 700,
-                                textDecoration: "none",
-                                color: "#fff",
-                                marginLeft: 5
-                            }}
-                        >
-                            Grupa
-						</Link>
-                        <Link
-                            to="/parent"
-                            style={{
-                                fontWeight: 700,
-                                textDecoration: "none",
-                                color: "#fff",
-                                marginLeft: 5
-                            }}
-                        >
-                            Dane
-						</Link>
-                        <Link
-                            to="/payout"
-                            style={{
-                                fontWeight: 700,
-                                textDecoration: "none",
-                                color: "#fff",
-                                marginLeft: 5
-                            }}
-                        >
-                            Wypłata
-						</Link>
-                        <Link
-                            to="/saveStatus"
-                            style={{
-                                fontWeight: 700,
-                                textDecoration: "none",
-                                color: "#fff",
-                                marginLeft: 5
-                            }}
-                        >
-                            Status zapisu
-						</Link>
-                        <Link
-                            to="/paymentStatus"
-                            style={{
-                                fontWeight: 700,
-                                textDecoration: "none",
-                                color: "#fff",
-                                marginLeft: 5
-                            }}
-                        >
-                            Status płatności
-						</Link>
-                        <Link
-                            to="/save"
-                            style={{
-                                fontWeight: 700,
-                                textDecoration: "none",
-                                color: "#fff",
-                                marginLeft: 5
-                            }}
-                        >
-                            Zapis
-						</Link>
-                        <Link
-                            to="/payment"
-                            style={{
-                                fontWeight: 700,
-                                textDecoration: "none",
-                                color: "#fff",
-                                marginLeft: 5
-                            }}
-                        >
-                            Opłata
-						</Link>
-                        <Link
-                            to="/parentChild"
-                            style={{
-                                fontWeight: 700,
-                                textDecoration: "none",
-                                color: "#fff",
-                                marginLeft: 5
-                            }}
-                        >
-                            Powiązanie
-						</Link>
-                        <Link
-                            to="/payoutEmployee"
-                            style={{
-                                fontWeight: 700,
-                                textDecoration: "none",
-                                color: "#fff",
-                                marginLeft: 5
-                            }}
-                        >
-                            wypłata pracownika
-						</Link>
-                        <Link
-                            to="/addWebPush"
-                            style={{
-                                fontWeight: 700,
-                                textDecoration: "none",
-                                color: "#fff",
-                                marginLeft: 5
-                            }}
-                        >
-                            Wiadomość
-						</Link>
-                        <Link
-                            to="/classList"
-                            style={{
-                                fontWeight: 700,
-                                textDecoration: "none",
-                                color: "#fff",
-                                marginLeft: 5
-                            }}
-                        >
-                            Lista obecności
-						</Link>
-                        
-                    </Typography>
-                    <MenuItem
+				<Link
+					to="/save"
+					style={{
+						fontWeight: 500,
+						textDecoration: "none",
+						color: "#fff",
+						marginRight: 20
+					}}
+				>
+					Zapisy
+				</Link>
+
+				<MenuItem
 					className={classes.logoutButton}
 					onClick={() => handleLogout()}
-				    >
+				>
 					Wyloguj
 				</MenuItem>
+			</Toolbar>
+		</AppBar>
+	);
 
-                </Toolbar>
-            </AppBar>
-   );
+	const employeeIsAuthenticated = (
+		<AppBar position="static">
+			<Toolbar>
+				<Link
+					to="/payoutEmployee"
+					style={{
+						fontWeight: 500,
+						textDecoration: "none",
+						color: "#fff",
+						marginRight: 20
+					}}
+				>
+					Wypłaty
+				</Link>
 
-   const token = localStorage.getItem("token");
+				<Link
+					to="/classList"
+					style={{
+						fontWeight: 500,
+						textDecoration: "none",
+						color: "#fff",
+						marginRight: 20
+					}}
+				>
+					Lista obecności
+				</Link>
+				<MenuItem
+					className={classes.logoutButton}
+					onClick={() => handleLogout()}
+				>
+					Wyloguj
+				</MenuItem>
+			</Toolbar>
+		</AppBar>
+	);
+
+	const adminIsAuthenticated = (
+		<AppBar position="static">
+			<Toolbar>
+				<Typography className={classes.title}>
+					<Link
+						to="/address"
+						style={{
+							fontWeight: 500,
+							textDecoration: "none",
+							color: "#fff",
+							marginRight: 20
+						}}
+					>
+						Adresy
+					</Link>
+
+					<Link
+						to="/employee"
+						style={{
+							fontWeight: 500,
+							textDecoration: "none",
+							color: "#fff",
+							marginRight: 20
+						}}
+					>
+						Pracownicy
+					</Link>
+					<Link
+						to="/user"
+						style={{
+							fontWeight: 500,
+							textDecoration: "none",
+							color: "#fff",
+							marginRight: 20
+						}}
+					>
+						Użytkownicy
+					</Link>
+					<Link
+						to="/group"
+						style={{
+							fontWeight: 500,
+							textDecoration: "none",
+							color: "#fff",
+							marginRight: 20
+						}}
+					>
+						Grupy
+					</Link>
+
+					<Link
+						to="/payout"
+						style={{
+							fontWeight: 500,
+							textDecoration: "none",
+							color: "#fff",
+							marginRight: 20
+						}}
+					>
+						Wypłaty
+					</Link>
+
+					<Link
+						to="/payment"
+						style={{
+							fontWeight: 500,
+							textDecoration: "none",
+							color: "#fff",
+							marginRight: 20
+						}}
+					>
+						Opłaty
+					</Link>
+					<Link
+						to="/parentChild"
+						style={{
+							fontWeight: 500,
+							textDecoration: "none",
+							color: "#fff",
+							marginRight: 20
+						}}
+					>
+						Powiązania rodzic - dziecko
+					</Link>
+
+					<Link
+						to="/addWebPush"
+						style={{
+							fontWeight: 500,
+							textDecoration: "none",
+							color: "#fff",
+							marginRight: 20
+						}}
+					>
+						Wiadomości
+					</Link>
+				</Typography>
+				<MenuItem
+					className={classes.logoutButton}
+					onClick={() => handleLogout()}
+				>
+					Wyloguj
+				</MenuItem>
+			</Toolbar>
+		</AppBar>
+	);
+
+	const token = localStorage.getItem("token");
 	if (token) {
 		var base64Url = token.split(".")[1];
 		var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
@@ -240,9 +247,9 @@ export default function Navbar() {
 
 	if (role) {
 		if (role.role === "admin") {
-			//headerLinks = adminIsAuthenticated;
+			headerLinks = adminIsAuthenticated;
 		} else if (role.role === "employee") {
-			//headerLinks = employeeIsAuthenticated;
+			headerLinks = employeeIsAuthenticated;
 		} else if (role.role === "parent") {
 			headerLinks = parentIsAuthenticated;
 		}
