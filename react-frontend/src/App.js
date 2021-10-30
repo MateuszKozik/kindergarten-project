@@ -53,7 +53,7 @@ import Login from "./Pages/Login/Login";
 import AddWebPush from "./Pages/WebPush/AddWebPush";
 
 import ClassList from "./Pages/Group/ClassList";
-
+import Home from "./Pages/Home";
 
 function App() {
 	return (
@@ -90,11 +90,19 @@ function App() {
 
 				<Route exact path="/saveStatus" component={SaveStatus} />
 				<Route exact path="/addSaveStatus" component={AddSaveStatus} />
-				<Route exact path="/updateSaveStatus/:id" component={UpdateSaveStatus} />
+				<Route
+					exact
+					path="/updateSaveStatus/:id"
+					component={UpdateSaveStatus}
+				/>
 
 				<Route exact path="/paymentStatus" component={PaymentStatus} />
 				<Route exact path="/addPaymentStatus" component={AddPaymentStatus} />
-				<Route exact path="/updatePaymentStatus/:id" component={UpdatePaymentStatus} />
+				<Route
+					exact
+					path="/updatePaymentStatus/:id"
+					component={UpdatePaymentStatus}
+				/>
 
 				<Route exact path="/save" component={Save} />
 				<Route exact path="/addSave" component={AddSave} />
@@ -106,16 +114,14 @@ function App() {
 
 				<Route exact path="/parentChild" component={ParentChild} />
 				<Route exact path="/addParentChild" component={AddParentChild} />
-				
+
 				<Route exact path="/register" component={Register} />
-				<Route exact path="/" component={Login} />
+				<Route exact path="/" component={Home} />
+				<Route exact path="/login" component={Login} />
 
 				<Route exact path="/addWebPush" component={AddWebPush} />
 
 				<Route exact path="/classList" component={ClassList} />
-
-				
-
 			</div>
 		</Router>
 	);
